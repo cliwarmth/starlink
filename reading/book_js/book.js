@@ -206,7 +206,7 @@ modalMask.addEventListener('click', function() {
       // 核心：添加 <img> 标签，使用 book-item-img 样式，新增容错处理（图片加载失败显示默认图）
       resultHtml += `<div class="book-result-item"> <!-- 使用 flex 布局，图片和文字横向排列 -->
       <a href="${item.linkUrl}" class="grid-link" target="_blank">
-        <img src="${item.imgUrl}" alt="${item.title} 封面" class="book-item-img" > <!-- 加载失败显示默认图 -->
+        <img src="${item.imgUrl}" alt="封面" class="book-item-img" > <!-- 加载失败显示默认图 -->
         <div> <!-- 文字容器，包裹书名和作者 -->
           <p style='margin: 0;font-weight: bold;'>
             <span>${item.title}</span>
@@ -294,6 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
 
 
 
