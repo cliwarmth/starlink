@@ -1,1 +1,575 @@
+/***************************************************************************************/
+/* 滚动条 */
+:root {
+  --scrollbar-color: #99806c;/*#99806c*/
+  --scrollbar-hover-color: #bda890; /* 滚动条滑块悬浮时的颜色（可自定义，比如加深默认颜色） */
+}
+*::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-color);
+}
+/* 关键：鼠标悬浮在滚动条滑块上时的样式（核心补充） */
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-hover-color); /* 悬浮时切换为自定义hover颜色 */
+}
+*::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+* {
+  scrollbar-color: var(--scrollbar-color) transparent;
+}
+/***************************************************************************************/
+
+/***************************************************************************************/
+/* 字体 */
+@font-face { /* 常规字体 */
+  font-family: "roundregular"; /* 自定义字体名称（可随便取，后续调用用这个名字） */
+  src: url("../book_fonts/ChillRoundFRegular.otf") format("otf"), /* 优先加载otf格式 */
+       url("../book_fonts/ChillRoundFRegular.ttf") format("truetype"); /* 兜底ttf格式 */
+  font-weight: normal; /* 字体粗细：normal（常规）、bold（粗体），按需设置 */
+  font-style: normal; /* 字体样式：normal（常规）、italic（斜体），按需设置 */
+}
+@font-face { /* 常规字体 */
+  font-family: "roundbold"; /* 自定义字体名称（可随便取，后续调用用这个名字） */
+  src: url("../book_fonts/ChillRoundFBold.otf") format("otf"), /* 优先加载otf格式 */
+       url("../book_fonts/ChillRoundFBold.ttf") format("truetype"); /* 兜底ttf格式 */
+  font-weight: normal; /* 字体粗细：normal（常规）、bold（粗体），按需设置 */
+  font-style: normal; /* 字体样式：normal（常规）、italic（斜体），按需设置 */
+}
+/***************************************************************************************/
+
+
+/***************************************************************************************/
+/* 全局重置：清除默认边距，避免干扰 */
+/* * {margin: 0; padding: 0; box-sizing: border-box;} */
+body {min-height: 100vh; display: flex; flex-direction: column;overflow-anchor: none;background-color: #f5f5f5;
+  overflow-x: hidden; /* 兜底：隐藏横向滚动条（即使有微小超出，也不显示滚动条） */
+  /* 中文字体 + 西文字体搭配，最后用通用字体兜底 */
+  font-family: "roundregular";
+  font-size: 18px; /* 可选：设置字体大小，方便查看效果 */
+}
+/***************************************************************************************/
+
+
+/***************************************************************************************/
+/* 导航栏设置 */
+/* 1.链接样式：黑色 + 无下划线 */
+.hylink {
+  text-decoration: none; /* 去掉下划线（核心） */
+  color: #7d5b3e; /* 设置字体：#7d5b3e  */
+  text-decoration: none !important; /* 可选：鼠标悬停时也保持无下划线（避免 hover 时又出现） */
+}
+.hylink:hover {
+  color: #bda890; /* 可选：鼠标悬停在链接上时，#bda890 */
+}
+
+/* 2.背景样式：紧贴两侧 */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-anchor: none /* 滚动锚点顶部位移为0 */
+}
+#nav {
+  display: flex; /* 核心：把父容器变成“弹性容器”，子元素自动横向排列 */
+  align-items: center; /* 子元素在垂直方向居中（避免有的高有的低） */
+  justify-content: space-between; /* 左右元素分开：左侧logo靠左，中间菜单和右侧按钮靠右 */
+  padding: 20px; /* 父容器内部的边距（让内容不贴边） */
+  background-color: transparent; /* 设置背景色#f3e8dc*/
+  background-position: center center; /* 背景图（如果设置了）在容器内「水平 + 垂直都居中」*/
+  background-size: cover; /* 背景图「覆盖整个头部容器」（保持图片比例，裁剪超出部分）*/
+  background-repeat: no-repeat; /* 背景图「不重复平铺」*/
+  transition: all 0.5s; /* 所有现代浏览器的过渡动画 */
+  width: 100%; /* 导航栏撑满屏幕宽度 */
+  box-sizing: border-box; /* 避免padding撑大导航栏导致溢出 */
+  flex-wrap: nowrap; /* 强制不换行（哪怕屏幕窄也挤在一行） */
+  /* border-radius: 10px; 圆角效果，数值可自定义 */
+  position: relative;  /* 关键：始终固定在顶部，不随滚动移动 */
+  top: 0; /* 紧贴顶部 */
+  left: 0; /* 左右全屏 */ 
+  z-index: 1; /* 确保在正文上方（不被正文遮挡） */
+  overflow: visible;
+  /* box-shadow: 0 0 15px rgba(153, 128, 108, 0.3); */
+  /* border-bottom: 2px solid #a37070; */
+} 
+#blog_info {
+  margin-left: 40px; /* 左侧logo离左边留10px空隙 */
+}
+#top_menu {
+  display: flex; /* 核心：把父容器变成“弹性容器”，子元素自动横向排列 */
+  align-items: center; /* 子元素在垂直方向居中（避免有的高有的低） */
+  gap: 10px; /* 子元素之间的间距（像课桌之间留空隙） */
+  margin-right: 40px; /* 右侧菜单离右边留10px空隙 */
+}
+#blog_info .hylink { /* 只放大“星绊计划”这四个字 */
+  font-size: 20px; /* 字体大小，默认一般是16px，22px会明显变大 */
+  font-weight: bold; /* 可选：加粗文字，让它更突出 */
+}
+
+
+/* 3.出场动画 */
+@keyframes header-effect { /* 页面头部动画设置 */
+/* 元素从 “上方 50 像素处、完全透明” 的状态，在 1 秒内慢慢向下移动到原来的位置，同时从透明逐渐变成完全可见 */
+  0% {
+    opacity: 0; /* 完全透明 */
+    transform: translateY(-20px); /* 标准语法：向上移动50px */
+  }
+  100% {
+    opacity: 1; /* 完全可见 */
+    transform: translateY(0); /* 标准语法：回到原位置 */
+  }
+}
+#nav { /* 页面头部执行动画 */
+  animation: header-effect 1s; /* 动画名称 动画时长 */
+}
+/* 4.滚动时样式转变 */
+#nav.scrolled { /* 滚动后的样式（添加这个类时生效） */
+  /* 底色：橙色半透明（rgba最后一个值0.5是透明度，0=全透明，1=不透明） */
+  background: rgba(212, 190, 164, 0.5);  /*212, 190, 164*/
+  position: fixed;
+  backdrop-filter: blur(8px);
+}
+#nav.scrolled .hylink {
+      text-decoration: none; /* 去掉下划线（核心） */
+      color: #5d3d21; /* 设置黑色字体：#000 是纯黑色，也可以写 color: black; 效果一样 */
+      text-decoration: none !important; /* 可选：鼠标悬停时也保持无下划线（避免 hover 时又出现） */
+    }
+#nav.scrolled .hylink:hover {
+      color: #99806c; /* 可选：鼠标悬停在链接上时，文字颜色不变（避免默认变蓝色） */
+    }
+
+/* 5.针对手机做的适配 */
+@media (max-width: 768px) { 
+  /* 隐藏“搜索、书架、关于”的文字，只留图标 */
+  #top_menu .hylink span {
+    display: none; /* 文字隐藏 */
+  }
+  /* 图标居中 */
+  #top_menu .hylink {
+    justify-content: center;
+  }
+  /* 减少“星绊计划”左侧的距离（如果之前加过margin-left） */
+  #blog_info {
+    margin-left: 2px; /* 左边外边距从原来的10px/5px缩小到3px（可按需调） */
+  }
+
+  /* 同步减少右侧菜单按钮的右边距离（保持对称） */
+  #top_menu {
+    margin-right: 2px; /* 右边外边距也缩小，避免右侧太宽 */
+  }
+}
+
+/* 6.针对宽屏的适配 */
+@media (min-width: 1501px) {
+  #blog_info {
+  margin-left: 100px; /* 左侧logo离左边留100px空隙 */
+  }
+  #top_menu {
+  display: flex; /* 核心：把父容器变成“弹性容器”，子元素自动横向排列 */
+  align-items: center; /* 子元素在垂直方向居中（避免有的高有的低） */
+  gap: 10px; /* 子元素之间的间距（像课桌之间留空隙） */
+  margin-right: 100px; /* 右侧菜单离右边留100px空隙 */
+  }
+}
+/***************************************************************************************/
+
+
+/***************************************************************************************/
+/* 页脚（强制固定在页面底部） */
+#footer {
+  height: 64px; /* 固定高度，和content-area的margin-bottom一致 */
+  background: transparent;
+  color: #7d5b3e;
+  display: flex;          /* 启用flex布局 */
+  flex-direction: column; /* 让内容垂直排列（保持两行） */
+  justify-content: center;/* 垂直方向居中 */
+  align-items: center;    /* 水平方向也居中（可选，和之前的需求匹配） */
+  width: 100%;
+  position: relative; /* 或fixed bottom:0，按需选 */
+  margin-top: auto; /* 强制推到页面底部 */
+  border-radius: 2px;
+  line-height: 1.4;
+}
+/***************************************************************************************/
+
+
+/***************************************************************************************/
+@keyframes article-effect {
+  0% {
+    transform: translateY(30px); /* 从下方50px处开始 */
+    opacity: 0; /* 完全透明 */
+  }
+  100% {
+    transform: translateY(0); /* 回到原位置 */
+    opacity: 1; /* 完全可见 */
+  }
+}
+#main_content { /* 页面头部执行动画 */
+  animation: article-effect 1s; /* 添加ease-out让动画更自然 */
+}
+#main_content { 
+  /* a.基础容器样式 */
+  background: #ffffff; /* 背景色（比如白色，和导航栏橙色区分） */
+  padding-top: 30px; /* 顶部内部留白：内容离main顶部的距离 */
+  padding-bottom: 30px; /* 底部内部留白：内容离main底部的距离 */
+  padding-left: 60px; /* 左右可保持原有数值，不改动 */
+  padding-right: 60px;
+  border-radius: 6px;
+  box-sizing: border-box;
+  width: 72%;
+  margin: 0 auto; /* 核心属性：上下外边距0，左右外边距自动分配，实现水平居中 */
+  box-shadow: 0 0 16px #99806c;
+  max-width: 1000px;
+ }
+#abstract_content {
+  display: flex; /* 关键属性：将容器内元素从纵向改为横向排列 */
+  align-items: stretch; /* 垂直方向顶端对齐（也可改为 center 垂直居中，按需选择） */
+  /* gap: 40px; 图片和文字之间的间距（替代你文字div的 margin-left，更灵活） */
+  padding: 10px;
+  justify-content: space-between;
+}
+#abimg {
+  height: 420px; /* 336px */
+  text-align: center;
+  border-radius: 4px;
+}
+#abinfo {
+  /* flex: 1; 关键！让文字容器自动占满剩余宽度，同时被拉伸至图片高度 */
+  box-sizing: border-box; /* 确保 padding 不撑大容器，不影响对齐 */
+  font-size: 20px;
+}
+#abline {
+  border: none;
+  height: 2px; /* 横线粗细（数值越大越粗） */
+  background-color: #ffffff; /* 核心：设置横线颜色（十六进制/RGB/英文均可） */
+  border-radius: 1px; /* 核心：设置圆角（数值小于等于横线粗细的一半，效果更自然） */
+  margin: 6px auto; /* 关键！上下间距均为15px（可自定义，如10px、20px） */
+}
+
+#article_container {
+  /* 可选：给侧边柜加内边距，让内容不贴边 */
+  padding: 10px;
+  line-height: 1.5;
+}
+#mobile_only{
+  display: none;
+}
+/* 5.针对手机做的适配 */
+@media (max-width: 768px) { 
+  #abimg {
+    width: 100%; /* 图片铺满屏幕，更醒目 */
+    height: auto;
+    margin-bottom: 20px; /* 图片和文字保持间距，避免紧贴 */
+    /* 关键：图片在视觉上方，滚动时先出现 */
+    display: block; /* 独占一行，确保在文字上方 */
+    order: -1; /* 强制图片排在文字前面（视觉上方，滚动先出现） */
+  }
+
+  /* 2. 文字在图片下方，需要向下滚动才能看到完整文字（若文字较多） */
+  #abinfo {
+    /* 无需额外设置，默认在图片下方（滚动视角下后出现） */
+    width: 100%;
+  }
+
+  /* 若原有 HTML 中文字在图片上方（电脑端），手机端强制让图片在视觉最上方 */
+  #abstract_content {
+    flex-direction: column; /* 垂直排列 */
+  }
+  #mobile_only{
+  display: block;
+}
+#pc_only{
+  display: none;
+}
+}
+/***************************************************************************************/
+
+/***************************************************************************************/
+/* 正文部分格式 */
+.title {
+  text-align: center;
+  display: block;
+  line-height: 2;
+}
+#book_review {
+  text-indent: 2em;
+  line-height: 2;
+  margin: 0;
+}
+.original_text {
+  font-weight: bold;
+  line-height: 1.8;
+  margin: 0;
+  /* font-family: "bold"; */
+}
+.comment {
+  line-height: 1.8;
+  margin: 0;
+}
+.finish_date {
+  box-sizing: border-box;
+  background-color: rgba(189, 168, 144, 0.8);
+  color: #ffffff;
+  border-radius: 8px;
+  padding-left: 6px; /* 左右可保持原有数值，不改动 */
+  padding-right: 6px;
+  padding-top: 4px; /* 顶部内部留白：内容离main顶部的距离 */
+  padding-bottom: 4px; /* 底部内部留白：内容离main底部的距离 */
+  font-size: 16px;
+}
+.finish_date_c {
+  text-align: center;
+  display: block;
+}
+/***************************************************************************************/
+
+
+/***************************************************************************************/
+/* 回到顶部 按钮*/
+#go_up {
+  position: fixed;
+  /* right: 80px; */
+  bottom: 10px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 1s;
+  width: 60px; /* 宽度从120px调整为150px，更大更宽 */
+  height: 48px; /* 手动设置高度（可选，不设则自适应按钮高度） */
+  box-sizing: border-box; /* 必加：padding不会撑开宽度/高度，大小精准 */
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px #99806c;
+  color:#99806c;
+  border: none;
+  cursor: pointer;
+  left: calc(50% + 36% + 20px); /* 核心！实现紧贴main右侧，且不破坏main居中 */
+}
+#go_up.show {
+  transform: translateY(0); /* 回到原始位置 */
+  opacity: 1; /* 完全显示 */
+}
+#go_up:hover {
+    /* 鼠标悬浮时仍保持手型（可省略，继承默认的cursor: pointer） */
+    cursor: pointer;
+    color: #bda890;
+}
+
+.wrap-main-btn {/*  新增：父容器样式（仅提供定位参考，无其他干扰样式） */
+  position: relative; /* 关键：作为按钮的定位参考，不影响main居中 */
+  /* 此处不设置width、margin等样式，避免干扰main的原有居中 */
+  /* 完全透明的容器，仅用于承载定位参考，对页面无任何视觉影响 */
+}
+/* 当视口宽度 ≥ main的max-width（1000px）时，执行以下样式 */
+@media screen and (min-width: 1501px) {
+  #go_up {
+    /* 大屏幕：匹配main的固定宽度1000px，紧贴右侧+10px间距 */
+    left: calc(50% + 500px + 20px) !important; /* 1000px的一半是500px，!important确保覆盖原有样式 */
+  }
+}
+/* ========== 按钮样式（保留你的滚动动画，新增定位样式实现紧贴右侧） ========== */
+/***************************************************************************************/
+
+/* 步骤2.3：美化弹窗（默认隐藏） */
+/* 1. 弹窗总容器：默认隐藏 */
+.search-modal {
+    display: none; /* 核心：默认不显示弹窗 */
+    position: fixed; /* 占满屏幕，不随滚动移动 */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999; /* 确保弹窗在最上层，不被其他元素遮挡 */
+    opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+}
+.search-modal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+/* 2. 弹窗遮罩层：黑色半透明 */
+.modal-mask {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%;
+    height: 200%;
+    background-color: rgba(0,0,0,0.5); /* 黑色半透明，模糊背景 */
+    cursor: pointer; /* 手型，提示点击可关闭 */
+}
+
+/* 3. 弹窗内容：白色背景，居中显示 */
+.modal-content {
+    position: absolute;
+    top: 14%;
+    left: 50%;
+    transform: translateX(-50%); /* 核心：水平+垂直居中 */
+    width: 60%; /* 小屏幕占90%宽度 */
+    max-width: 900px; /* 大屏幕最大宽度800px，不无限放大 */
+    background-color: #fff; /* 白色背景 */
+    border-radius: 12px; /* 圆角，更美观 */
+    padding: 24px; /* 内边距，内容不贴边 */
+    box-shadow: 0 4px 20px rgba(0,0,0,0.3); /* 阴影，提升立体感 */
+    z-index: 10; /* 确保弹窗内容在遮罩层上方 */
+}
+
+/* 4. 关闭按钮样式 */
+.close-btn {
+    position: absolute;
+    top: 2px;
+    right: 14px;
+    font-size: 32px;
+    color: #9ca3af; /* 灰色，不刺眼 */
+    cursor: pointer; /* 手型，提示可点击 */
+    transition: all 0.3s ease;
+}
+
+/* 关闭按钮悬浮时，变红，提示可点击 */
+.close-btn:hover {
+    color: #ef4444; /* 红色 */
+}
+/* 步骤2.4：美化弹窗内的搜索栏和学生列表 */
+/* 1. 弹窗内搜索栏 */
+.search-box {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 16px auto;
+    width: 98%;
+}
+
+#search-input {
+    flex: 1;
+    padding: 12px 16px;
+    /* border: 2px solid #e5e7eb; #e5e7eb */
+    /* border-radius: 8px; */
+    font-size: 18px;
+    outline: none;
+    border: none; /* 核心1：清除所有默认边框 */
+  border-bottom: 2px solid #e5e7eb; /* 核心2：仅设置底部边框（粗细+颜色，可自定义） */
+}
+
+#search-input::placeholder {
+    color: rgb(160, 160, 160); /* 和上面颜色保持一致 */
+}
+/* 1. 兼容 Chrome、Edge、Safari 浏览器（webkit内核） */
+#search-input::-webkit-input-placeholder {
+    color: rgb(160, 160, 160); /* 你想要的占位符颜色（这里是浅灰色，可自定义） */
+}
+/* 2. 兼容 Firefox 浏览器（moz内核） */
+#search-input::-moz-placeholder {
+    color: rgb(160, 160, 160); /* 和上面颜色保持一致 */
+}
+/* 3. 兼容 IE/旧版浏览器（ms内核，可选，现代浏览器可忽略） */
+#search-input:-ms-input-placeholder {
+    color: rgb(160, 160, 160); /* 和上面颜色保持一致 */
+}
+#search-input:focus {
+    border-color: #bda890;
+}
+
+#search-btn {
+    padding: 12px 24px;
+    background-color: #bda890;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+#search-btn:hover {
+    background-color: #99806c;
+}
+
+/**/
+#result-container {
+    display: none;
+    margin: 16px auto;
+    width: 98%; /* 与.search-box同宽 */
+    max-height: 50vh;
+    overflow-y: auto;
+    /* 关键2：左右内边距可按需微调（默认10px，若要完全对齐，可与.search-box内元素一致） */
+    padding: 10px 10px; /* 先设为0，后续可微调 */
+    /* border: 2px solid #e5e7eb; e5e7eb */
+    border-radius: 8px;
+    box-sizing: border-box;
+    line-height: 1.6;
+  /* 关键2：垂直方向溢出时自动出现滚动条，水平方向隐藏（避免横向滚动条） */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.book-item-img {
+  width: 50px; /* 图片宽度，可自定义 */
+  height: auto; /* 图片高度，可自定义 */
+  border-radius: 4px; /* 圆角效果，可选 */
+  margin-left: 10px;
+  margin-right: 12px; /* 图片和文字的间距，避免拥挤 */
+  object-fit: cover; /* 保持图片比例，裁剪多余部分，避免变形 */
+}
+.book-result-item {
+  display: flex;
+  align-items: center; 
+  margin: 8px 0;
+  line-height: 1.6;
+}
+
+.book-result-list {
+  display: grid; /* 核心：启用 Grid 布局 */
+  grid-template-columns: repeat(2, 1fr); /* 核心：等分 2 列，自动适配宽度 */
+  gap: 16px; /* 核心：结果项之间的水平+垂直间距（可自定义，如 10px） */
+  /* margin-top: 12px; 提示文字和结果列表的间距 */
+}
+
+.grid-link {
+      display: flex; /* 块级弹性元素 */
+      width: 100%;
+      box-sizing: border-box; /* 盒模型优化 */
+      /* padding: 16px; */
+      /* background-color: #f9f9f9; */
+      text-decoration: none;
+      color: #99806c;
+      /* border-radius: 4px; */
+      align-items: center;
+    }
+.grid-link:hover {
+ background-color: #f5f5f5;
+}
+
+
+
+
+
+/***************************************************************************************/
+/* 未启用 */
+/* 可选：角落胶带装饰（增强便利贴感） */
+.aside_content::before {
+ content: "";
+ position: absolute;
+ top: 10px;
+ right: 10px;
+ width: 60px;
+ height: 20px;
+ background: rgba(255, 255, 255, 0.6); /* 半透明白色胶带 */
+ border-radius: 2px;
+ transform: rotate(30deg); /* 胶带倾斜 */
+ box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
+}
+.aside_content::after {
+  content: "";
+  position: absolute;
+  top: 10px;          /* 距离顶部 */
+  left: 10px;         /* 距离左侧 */
+  width: 60px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 2px;
+  transform: rotate(-30deg); /* 逆时针旋转，贴合左上角 */
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
+  z-index: 1;
+}
 
