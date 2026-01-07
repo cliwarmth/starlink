@@ -1,51 +1,43 @@
 <!DOCTYPE html>
-<html lang="zh-CN"> <!-- 声明页面的主要语言类型为中文 -->
+<html lang="zh-CN">
 
-<head> <!-- 网页基本配置，内容不显示 -->
-  <!-- 1.基本配置 -->
-  <meta charset="UTF-8"> <!-- 字符编码配置（防乱码，必写）-->
-  <title>一本书读懂财报</title> <!-- 页面标题（浏览器标签显示，必写，可修改）-->
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- 移动端适配配置（必写，否则手机显示异常）-->
-  <meta name="description" content="251023-RB-FIN"> <!-- 页面描述信息，可修改 -->
-  <meta name="author" content="cliwarmth"> <!-- 标注作者信息，可修改 -->
-  <meta name="copyright" content="cliwarmth"> <!-- 标注版权声明，可修改 -->
-  <meta name="format-detection" content="telephone=no, email=no"> <!-- 禁止浏览器把页面中的数字识别为电话号码/邮箱，主要针对手机 -->
-  <meta name="theme-color" content="#ffffff"> <!-- 设置移动端浏览器的主题颜色为白色，可修改 -->
-    <!-- 1.1 转发配置，Open Graph（OGP）协议标签，可以不写 -->
-    <meta property="og:type" content="article"> <!-- 明确页面类型是普通网站主页，若是文章就写article -->
-    <meta property="og:title" content="一本书读懂财报"> <!-- 卡片顶部显示的大字标题，可修改 -->
-    <meta property="og:url" content="https://xxx"> <!-- 分享卡片指向的固定官方链接，记得改成该网页的位置 -->
-    <meta property="og:site_name" content="Project Starlink"> <!-- 分享卡片中标题下方的小字标注 -->
-    <meta property="og:description" content="星星连成线，那是我的过往"> <!-- 分享卡片的描述文字 -->
-    <meta property="og:locale" content="zh_CN"> <!-- 定义页面的语言/地区 -->
-    <meta property="og:image" content="/starlink/reading/book_img/bc20251023.jpg"> <!-- 分享卡片的预览图片，记得改成该图片的位置 -->
-    <meta property="article:author" content="cliwarmth"> <!-- 定义页面 / 文章的作者 -->
-      <!-- 1.1.1 若是article，可以进一步配置，可以不写 -->
-      <meta property="article:published_time" content="2025-10-23T04:00:00.000Z">  <!-- 文章首次发布时间 -->
-      <meta property="article:modified_time" content="2025-10-23T04:00:00.000Z"> <!-- 文章最后修改/更新时间 -->
-      <meta property="article:tag" content="xxx"> <!-- 分类标签/关键词，可以叠加 -->
-  <link rel="shortcut icon" href="/starlink/reading/book_img/bookicon.png"> <!-- 打开网页时，浏览器标签栏左侧显示的那个小图片，记得改成该图片的相对位置 -->
-  <link rel="canonical" href="https://xxx"> <!-- 规范搜索引擎链接，记得改成该网页的位置 -->
-  <link rel="preconnect" href="//cdn.jsdelivr.net"/> <!-- 提前和 jsDelivr 的服务器建立网络连接，加速链接，test阶段先不用 -->
+<head>
+  <meta charset="UTF-8">
+  <title>一本书读懂财报</title> <!-- 填写：书名 -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="251023-RB-FIN"> <!-- 填写：编号 -->
+  <meta name="author" content="cliwarmth">
+  <meta name="copyright" content="cliwarmth">
+  <meta name="format-detection" content="telephone=no, email=no">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="一本书读懂财报"> <!-- 填写：书名 -->
+  <meta property="og:url" content="https://cliwarmth.github.io/starlink/reading/251023.html"> <!-- 填写：该网页的位置 -->
+  <meta property="og:site_name" content="Project Starlink">
+  <meta property="og:description" content="星星连成线，那是我的过往">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="/starlink/reading/book_img/bc20251023.jpg"> <!-- 填写：书图片的位置 -->
+  <meta property="article:author" content="cliwarmth">
+  <meta property="article:published_time" content="2025-10-23T04:00:00.000Z">  <!-- 填写：文章首次发布时间 -->
+  <meta property="article:modified_time" content="2025-10-23T04:00:00.000Z"> <!-- 填写：文章最后修改/更新时间 -->
+  <meta property="article:tag" content="工具书-金融"> <!-- 填写：分类标签/关键词，可以叠加 -->
+  <link rel="shortcut icon" href="/starlink/reading/book_img/bookicon.png">
+  <link rel="canonical" href="https://cliwarmth.github.io/starlink/reading/251023.html"> <!-- 填写：该网页的位置 -->
+  <link rel="preconnect" href="//cdn.jsdelivr.net"/> <!-- 提前和 jsDelivr 的服务器建立网络连接，加速链接 -->
   <!-- <link rel="preconnect" href="//busuanzi.sukap.cn"/> --> <!-- 提前和 不蒜子 的服务器建立网络连接，提供统计，test阶段先不用 -->
-  <link rel="stylesheet" href="/starlink/reading/book_css/book.css"> <!-- 引入外部 CSS 样式表，初期阶段先不用，建好再用 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"> <!-- 引入所有 Font Awesome 免费图标，初期阶段先不用，建好再用 -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"> <!-- 引入 Fancybox 图片预览插件，初期阶段先不用，建好再用 -->
+  <link rel="stylesheet" href="/starlink/reading/book_css/book.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'">
   
-  <!-- 2 核心全局配置 -->
   <script>
     const GLOBAL_CONFIG = { 
-      /* A 禁用海外搜索插件Algolia（国内用不了，省加载资源）*/
       algolia: undefined, 
-      /* C 复制功能提示 */
       copy: { 
-        success: '复制成功', // 复制代码/链接成功时的提示文本
-        error: '复制错误', // 复制失败时的提示
-        noSupport: '浏览器不支持' // 浏览器不兼容复制功能时的提示
+        success: '复制成功',
+        error: '复制错误',
+        noSupport: '浏览器不支持'
       },
-      /* C 禁用自动添加版权信息（可手动写版权） */
       copyright: undefined, 
-      /* D 时间后缀文本（如果开启相对时间relativeDate，会显示“5分钟前”“3天前”，当前为关闭）*/
       date_suffix: { 
         just: '刚刚',
         min: '分钟前',
@@ -53,20 +45,15 @@
         day: '天前',
         month: '个月前'
       }, 
-      /* H 代码高亮配置 */
       highlight: { 
-        "plugin":"highlighjs", // 指定用 highlight.js 做代码高亮（代码自动上色）
-        "highlightCopy":true, // 显示“复制代码”按钮
-        "highlightLang":true, // 显示代码语言（比如代码块上方标“HTML”“CSS”）
-        "highlightHeightLimit":false // 不限制代码块高度（超长代码块可滚动）
+        "plugin":"highlighjs",
+        "highlightCopy":true,
+        "highlightLang":true,
+        "highlightHeightLimit":false
       },
-      /* I 禁用锚点自动跳转（简化交互）*/
       isAnchor: false,
-      /* I 关闭图片懒加载（false=页面加载时加载所有图片；true=滚动到图片位置才加载），false适合图片少的博客（比如单篇笔记 1-2 张图），页面加载更快*/
       islazyload: false,
-      /* I 显示图片的说明文字（<img>下方的figcaption），即图片下方可以加说明文字 */
       isPhotoFigcaption: true, 
-      /* L 关联 Fancybox 插件 */
       lightbox: 'fancybox',
       /* L 本地搜索功能，需要额外配置xml文件 */
       /*localSearch: {
@@ -74,66 +61,53 @@
         "preload":true, // 预加载搜索数据（用户点搜索框时不用等，直接搜）
         "languages":{"hits_empty":"找不到您查询的内容：${query}"} // 搜索无结果的提示文本
       },*/
-      /* N 禁用“文章过期提示”（笔记类内容无需过期提醒），如有时效性内容可添加该功能 */
       noticeOutdate: undefined,
-      /* P 禁用额外进度条，可以试试看是否需要该功能 */
       percent: {
-        toc: false,  // 禁用目录进度条（简化界面）
-        rightside: false, // 禁用右侧滚动进度条（简化界面）
+        toc: false,
+        rightside: false,
       },
-      /* R 相对时间显示（比如“5分钟前发布”）*/
       relativeDate: {
-        homepage: false,  // 首页关闭
-        post: false // 文章页关闭
+        homepage: false,
+        post: false
       }, 
-      /* R 核心：指定博客所有 “相对路径” 的根目录，避免子页面引用CSS/图片出错 */
       root: '/',
-      /* R 运行时预留扩展位，暂无用途 */
       runtime: '',
-      /* S 谷歌的轻量级反馈提示组件，可以自行考虑是否需要该功能 */
       Snackbar: undefined,
-      /* S 第三方资源（仅备用，需要时才设置启用条件以减少冗余），未调用时只是字符串 */
       source: {
-        justifiedGallery: {// 让多张图片自动排列成 “无间隙、行高一致、视觉整齐” 的网格布局
+        justifiedGallery: {
           js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
           css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
         }
       },
-      /* T 简繁翻译配置 */
       translate: {
-        "defaultEncoding":2, // 2=默认显示简体中文（1=繁体）
-        "translateDelay":0, // 点击“繁/简”按钮立即翻译，无延迟
-        "msgToTraditionalChinese":"繁", // 切换繁体的按钮文本
-        "msgToSimplifiedChinese":"簡" // 切换简体的按钮文本
+        "defaultEncoding":2,
+        "translateDelay":0,
+        "msgToTraditionalChinese":"繁",
+        "msgToSimplifiedChinese":"簡"
       },
     }
   </script>
   
-  <!-- 3 专属配置 -->
   <script id="config-diff">
-    /* 页面的个性化参数 */
+    /* 页面的个性化参数，还是不懂 */
     var GLOBAL_CONFIG_SITE = {
       title: 'Starlink', // 页面专属标题，可改
-      isPost: true, // 是否为文章页，可改
-      isHome: false, // 是否为首页，可改
-      isHighlightShrink: false, // 代码高亮块是否收缩，可改
-      isToc: false, // 是否显示目录，可改
-      postUpdate: '2025-12-11 15:32' // 文章最后更新时间，可改
+      isPost: true,
+      isHome: false,
+      isHighlightShrink: false,
+      isToc: false,
+      postUpdate: '2025-12-11 15:32' // 填写：文章最后更新时间
     }
   </script>
 
-  <!-- 5 JS禁用兜底配置，只有当用户浏览器禁用 JavaScript 时，里面的 CSS 才会生效 -->
   <noscript>
     <style type="text/css">
-      /* 强制导航栏的 “透明度为 1”（完全显示）*/ 
       #nav { 
         opacity: 1
       }
-      /* 强制画廊里的图片完全显示 */
       .justified-gallery img {
         opacity: 1
       }
-      /* 强制显示时间 */
       #recent-posts time,
       #post-meta time {
         display: inline !important
@@ -141,126 +115,99 @@
     </style>
   </noscript>
 
-  <!-- 6  立即调用函数表达式（IIFE），作用域隔离 -->
   <script>
     (win=>{
-      /* 6.1 定义全局函数getScript：用于异步加载外部JS文件，返回Promise（成功/失败可回调） */
       win.getScript = url => new Promise((resolve, reject) => {
-        /** 参数url：要加载的JS文件网络地址/本地路径 **/
-        const script = document.createElement('script') // 创建一个空的<script>标签（相当于在HTML里写script板块）
-        script.src = url // 给<script>标签设置src属性:指定要加载的JS文件地址
-        script.async = true // 设置async=true：异步加载JS，不阻塞页面渲染（优先显示博客内容）
-        script.onerror = reject // 监听JS加载失败事件：加载出错（如404/网络断）时触发Promise的reject
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
         script.onload = script.onreadystatechange = function() { 
-          /*** 监听JS加载完成事件：兼容现代浏览器（onload）和老IE（onreadystatechange）
-               把两个事件绑定到同一个处理函数，统一处理加载完成逻辑 ***/
-          const loadState = this.readyState // 获取老IE的加载状态（现代浏览器该值为undefined）
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return // 老IE兼容逻辑：若有加载状态且不是'loaded'/'complete'，说明未加载完，直接退出，'loaded'/'complete'是老IE标识"JS加载完成"的固定状态值
-          script.onload = script.onreadystatechange = null // 清理事件监听：加载完成后置空onload/onreadystatechange，避免重复触发/内存泄漏
-          resolve() // 加载成功：触发Promise的resolve，通知外部"JS加载完成，可执行后续逻辑"
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
         }
-        document.head.appendChild(script) // 将创建好的<script>标签添加到<head>中，浏览器开始异步加载该JS文件
+        document.head.appendChild(script)
       })
 
-      /* 6.2 定义全局函数getCSS：接收CSS地址(url)和可选ID，返回Promise（成功resolve/失败reject） */
       win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
-        const link = document.createElement('link') // 创建空的<link>标签（等价于在HTML<head>里写<link></link>）
-        link.rel = 'stylesheet' // 设置<link>标签的rel属性为'stylesheet'：固定值，告诉浏览器这是样式表文件
-        link.href = url // 设置<link>标签的href属性：指定要加载的CSS文件地址（核心，浏览器靠这个找文件）
-        if (id) link.id = id  // 可选逻辑：如果传入了ID（非false），给<link>标签加ID属性；作用：后续可通过ID找到这个标签（比如删除/替换样式）
-        link.onerror = reject   // 监听CSS加载失败事件：加载出错（404/网络断）时触发Promise的reject；外部可通过.catch()捕获错误，比如提示“样式加载失败”
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
         link.onload = link.onreadystatechange = function() {
-          /*** 监听CSS加载完成事件：兼容现代浏览器（onload）和老IE（onreadystatechange）
-               把两个事件绑定到同一个函数，统一处理“加载完成”逻辑 ***/
-          const loadState = this.readyState // 获取老IE的加载状态（现代浏览器该值为undefined）
-          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return // 8. 老IE兼容逻辑：若有加载状态且不是'loaded'/'complete'，说明未加载完，直接退出，'loaded'/'complete'是老IE标识“CSS加载完成”的固定状态值
-          link.onload = link.onreadystatechange = null // 清理事件监听：加载完成后置空onload/onreadystatechange，避免重复触发/内存泄漏
-          resolve() // 加载成功：触发Promise的resolve，通知外部“CSS加载完了，可以执行下一步”
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
         }
-      document.head.appendChild(link) // 将创建好的<link>标签添加到<head>中，浏览器开始异步加载该CSS文件
+      document.head.appendChild(link)
       })
 
-      /* 6.5 定义set方法：参数=数据名(key)+数据值(value)+保质期天数(ttl) */
       set: function setWithExpiry(key, value, ttl) {
-      if (ttl === 0) return // 如果保质期设为0天（ttl=0），直接不存（相当于“不保存”）
-      const now = new Date() // 拿到当前时间（比如2025-12-11 10:00:00）
-      const expiryDay = ttl * 86400000 // 把“保质期天数”转成JS能识别的“毫秒数”（1天=24*60*60*1000=86400000毫秒），比如ttl=7 → 7*86400000=604800000毫秒（7天）
-      const item = {   // 打包要存的数据：实际值 + 过期时间
-        value: value,  // 实际要存的内容（比如侧边栏状态：'hide'）
-        expiry: now.getTime() + expiryDay,  // 过期时间=当前时间毫秒数+保质期毫秒数
+      if (ttl === 0) return
+      const now = new Date()
+      const expiryDay = ttl * 86400000
+      const item = {
+        value: value,
+        expiry: now.getTime() + expiryDay,
       }
-      localStorage.setItem(key, JSON.stringify(item)) // 把打包好的数据存进浏览器小抽屉（localStorage只能存字符串，所以用JSON.stringify转成字符串）
+      localStorage.setItem(key, JSON.stringify(item))
       }
 
-      /* 6.6 设置黑白切换 */
-      win.activateDarkMode = function () { // 定义全局函数activateDarkMode：切换到暗黑模式
-        document.documentElement.setAttribute('data-theme', 'dark') // 给HTML根标签加“data-theme="dark"”属性，CSS会根据这个属性改样式：比如背景变黑、文字变白
-        if (document.querySelector('meta[name="theme-color"]') !== null) { // 检查页面是否有“theme-color”的meta标签
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d') // 有这个标签：把标签的content改成黑色（#0d0d0d），作用：移动端浏览器的地址栏会变成黑色，和暗黑模式适配
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
         }
       }
-      win.activateLightMode = function () { // 定义全局函数activateLightMode：切换到亮色模式
-        document.documentElement.setAttribute('data-theme', 'light') // 给HTML根标签加“data-theme="light"”属性，CSS会根据这个属性改样式：背景变白、文字变黑
-        if (document.querySelector('meta[name="theme-color"]') !== null) { // 检查是否有“theme-color”的meta标签
-          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff') // 把标签的content改成白色（#ffffff），作用：移动端地址栏变白色，和亮色模式适配
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
         }
       }
-      const t = saveToLocal.get('theme') // 翻小本本：读取本地存储里“theme”的记录（调用saveToLocal.get，检查保质期），结果可能是：'dark'/'light'/undefined（没记录/过期）
-      if (t === 'dark') activateDarkMode() // 根据记录恢复主题：如果记录是'dark' → 执行暗黑模式函数
-      else if (t === 'light') activateLightMode() // 如果记录是'light' → 执行亮色模式函数
-      // 如果是undefined（没记录/过期）→ 不执行任何操作，用博客默认主题
+      const t = saveToLocal.get('theme')
+      if (t === 'dark') activateDarkMode()
+      else if (t === 'light') activateLightMode()
 
-      /* 6.7 设置侧边栏 */
-      const asideStatus = saveToLocal.get('aside-status') // 查小本本：读取本地存储里“侧边栏状态”的记录（调用saveToLocal.get，即之前的getWithExpiry），'aside-status'是小本本上的“侧边栏专属标签”，专门记侧边栏该收还是该摆
-      if (asideStatus !== undefined) { // 先判断：小本本上有没有记录（不是“没记录”状态），undefined = 小本本上没这个标签（用户第一次来，没操作过侧边栏）
-        if (asideStatus === 'hide') { // 如果记录是“hide”（用户上次说“收起立牌”）
-          document.documentElement.classList.add('hide-aside') // 给博客根标签<html>加“hide-aside”类名（贴“收起来”贴纸），CSS里只要有这个类名，就会隐藏侧边栏（就像店员看到贴纸收立牌）
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
         }
-        else { // 记录不是“hide”（比如是“show”，用户上次说“摆出来”）   
-          document.documentElement.classList.remove('hide-aside') // 撕掉“收起来”贴纸（移除类名），侧边栏就显示出来
+        else {  
+          document.documentElement.classList.remove('hide-aside')
         }
       }
 
-      /* 6.8 定义函数detectApple（“检测苹果设备”），专门干“识别苹果用户”这一件事 */
       const detectApple = () => {
-        /** 核心检测逻辑：扫顾客的“设备身份卡”，看是不是苹果设备
-            navigator.userAgent = 顾客的“设备身份卡”（上面写着：我用的是iPhone/Mac/华为手机/Windows电脑）
-            /iPad|iPhone|iPod|Macintosh/ = 关键词检测器（专门找“iPad/iPhone/iPod/Macintosh”这些苹果设备的名字）
-            .test() = 用检测器扫身份卡，扫到苹果关键词就返回“是”，否则返回“否” **/
         if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
-          /** 给苹果用户贴“专属贴纸”：给博客的根标签<html>加一个叫“apple”的类名
-              就像给苹果设备用户的奶茶杯贴“苹果用户专属”贴纸，后续店员看到贴纸就给专属待遇 **/
           document.documentElement.classList.add('apple')
         }
       }
-      detectApple() // 页面加载时执行识别器，立刻检测用户设备
+      detectApple()
     })(window)
   </script>
 
-  <!-- 测试区域，满足条件就挪到css -->
   <style> 
-/* 核心：控制横线不碰浏览器边框 */
 .nav-bg {
   content: "";
-  top: 0; /* 横线贴导航栏底部 */
-  /* 关键2：左偏移 = 导航栏左内边距（20px），横线从这里开始 */
-  /* left: -32px; 左右偏移抵消模糊溢出，配合 right: -10px */
-  /* right: -32px; */
-  /* 关键3：宽度 = 导航栏宽度 - 左右内边距（20px*2），横线到这里结束 */
+  top: 0;
   width: 100%; 
   max-width: 100vw;
-  background-image: url('/starlink/reading/book_img/bgimg.jpg');
+  background-image: url('book_img/bgimg.jpg');
   aspect-ratio: 3 / 1;
-  min-height: 300px; /* 最小高度300px，小屏上不致过高 */
-  max-height: 600px; /* 最大高度600px，大屏上不致过高 */
+  min-height: 300px;
+  max-height: 600px;
   background-size: cover;
   z-index: -1;
   opacity: 1;
-  display: block; /* 【修改3】：兜底配置，确保伪元素为块级，稳定显示 */
-  /* background: rgba(153, 128, 108, 0.6); 奶茶色横线 */
+  display: block;
   position: absolute;
   filter: blur(20px);
-  transform: scale(1.05); /* 优化模糊边缘（不变） */
+  transform: scale(1.05);
   pointer-events: none;
   box-sizing: border-box;
   overflow: hidden;
@@ -269,32 +216,26 @@
 </head>
 
 <body>
-  <!-- 1. 页面主体设置 -->
-  <div id="body" class="page" style="color:#5d3d21"> <!-- id="body" 是唯一标识，class="page" 是样式类（控制整体布局） -->
-    <!-- 1.1 页面头部（导航栏）-->  
-    <header id="page_header" class="not_home_page"> <!--  style="background-image: url('/starlink/img/一本书读懂财报.jpg');height: 400px;background-size: cover;"-->    
+  <div id="body" class="page" style="color:#5d3d21">
+    <header id="page_header" class="not_home_page">
       <div class="nav-bg"></div>
-      <nav id="nav"> <!-- 导航栏核心容器：id="nav" -->     
-        <!-- 1.1.1 左侧回到首页-->
-        <span id="blog_info"> <!-- 博客信息：显示站点名称 -->
+      <nav id="nav">
+        <span id="blog_info">
           <a href="/starlink/reading/index_reading.html" title="回到书架" class="hylink">
             <i class="fa-fw fas fa-solid fa-arrow-left"></i>
-             Surplus Library</a> <!-- 点击跳转到首页，title → 鼠标悬停时显示的提示文字，可以改噢 -->
+             Surplus Library</a>
         </span>
-        <!-- 1.1.2 右侧顶部菜单容器-->
-        <div id="top_menu"> <!-- 顶部菜单容器：id="top-menus" -->
-          <!--(1) 搜索按钮 -->
-          <a id="search_button" class="hylink" href="javascript:void(0);"> <!-- href="javascript:void(0);" → 点击不跳转，触发搜索弹窗（靠JS）;class="icon-search" → 样式类（搜索按钮样式）-->
-            <i class="fas fa-search fa-fw"></i> <!-- i class="fas fa-search fa-fw"/i → 搜索图标 -->
+        <div id="top_menu">
+          <a id="search_button" class="hylink" href="javascript:void(0);">
+            <i class="fas fa-search fa-fw"></i>
             <span> 搜索</span>
           </a>
-          <!--(2) 首页 -->
-          <a class="hylink" href="/starlink/index.html"> <!-- 可改链接 -->
+          <a class="hylink" href="/starlink/index.html"> <!-- 填写：可改链接 -->
             <i class="fa-fw fas fa-home"></i>
             <span> 首页</span>
           </a>
           <!-- (3) 关于 -->
-          <a class="hylink" href="/starlink/about.html"> <!-- 可改链接 -->
+          <a class="hylink" href="/starlink/about.html"> <!-- 填写：可改链接 -->
             <i class="fa-fw fas fa-solid fa-user"></i>
             <span> 关于</span>
           </a>
@@ -302,67 +243,71 @@
       </nav>
     </header>
 
-<div class="wrap-main-btn">
-    <!-- 2. 正文区域 -->
-    <main id="main_content" class="layout" > <!-- ：class="layout" 控制布局，id="content" 是正文容器 -->
-      <!-- 2.2 侧边栏设置 -->
-      <div id="pc_only">
-      <div id="abstract_content"> <!-- id="abstract_content" 是给这个侧边柜起“唯一名字”，方便CSS控制位置/样式（比如隐藏、改颜色） -->
-        
-        <div id="abinfo">
-          <h1 style="color:#7d5b3e">一本书读懂财报</h1>
-          <p><strong>编号：</strong>251023-RB-FIN</p>
-          <p><strong>作者：</strong>肖星</p>
-          <p><strong>译者：</strong>-</p>
-          <p><strong>日期：</strong>2025.10.23</p>
-          <p><strong>出版：</strong>浙江大学出版社</p>
-          <p><strong>分类：</strong>工具书-金融</p>
-          <p><strong>渠道：</strong>纸书</p>
-          <p><strong>阶段：</strong>Conquer</p>
+    <div class="wrap-main-btn">
+      <main id="main_content" class="layout" >
+        <div id="pc_only">
+          <div id="abstract_content">
+            <div id="abinfo">
+              <!-- 填写：书本各种信息 -->
+              <h1 style="color:#7d5b3e">一本书读懂财报</h1>
+              <p><strong>编号：</strong>251023-RB-FIN</p>
+              <p><strong>作者：</strong>肖星</p>
+              <p><strong>译者：</strong>-</p>
+              <p><strong>日期：</strong>2025.10.23</p>
+              <p><strong>出版：</strong>浙江大学出版社</p>
+              <p><strong>分类：</strong>工具书-金融</p>
+              <p><strong>渠道：</strong>纸书</p>
+              <p><strong>阶段：</strong>Conquer</p>
+            </div>
+            <!-- 填写：书图片位置 -->
+            <a data-fancybox="gallery" href="/starlink/reading/book_img/bc251023.jpg"><img src="/starlink/reading/book_img/bc251023.jpg" id="abimg" alt="书封"/></a>
+          </div>
         </div>
-        <a data-fancybox="gallery" href="/starlink/reading/book_img/bc251023.jpg"><img src="/starlink/reading/book_img/bc251023.jpg" id="abimg" alt="书封"/></a> <!-- 记得改 -->
-      </div>
-      </div>
-      <div id="mobile_only">
-      <div id="abstract_content"> <!-- id="abstract_content" 是给这个侧边柜起“唯一名字”，方便CSS控制位置/样式（比如隐藏、改颜色） -->
-        <a data-fancybox="gallery2" href="/starlink/reading/book_img/bc251023.jpg"><img src="/starlink/reading/book_img/bc251023.jpg" id="abimg" alt="书封"/></a> <!-- 记得改 -->
-        <div id="abinfo">
-          <h1 style="color:#7d5b3e">一本书读懂财报</h1>
-          <p><strong>编号：</strong>251023-RB-FIN</p>
-          <p><strong>作者：</strong>肖星</p>
-          <p><strong>译者：</strong>-</p>
-          <p><strong>日期：</strong>2025.10.23</p>
-          <p><strong>出版：</strong>浙江大学出版社</p>
-          <p><strong>分类：</strong>工具书-金融</p>
-          <p><strong>渠道：</strong>纸书</p>
-          <p><strong>阶段：</strong>Conquer</p>
-        </div>
-      </div>  
-      </div>
-     <a data-fancybox="gallery2" href="/starlink/reading/book_img/251023book2.jpg"><a data-fancybox="gallery" href="/starlink/reading/book_img/251023book2.jpg"><img src="book_img/251023book2.jpg" id="abimg" alt="书封"/></a></a> <!-- 记得改 -->
       
-      <!-- 2.1 文字区域 -->
-      <article id="article_container" class="article_content">
-        
-        <h2 class="title" >· · · 摘抄 · · ·</h2>
+        <div id="mobile_only">
+          <div id="abstract_content">
+            <!-- 填写：书图片位置 -->
+            <a data-fancybox="gallery2" href="/starlink/reading/book_img/bc251023.jpg"><img src="/starlink/reading/book_img/bc251023.jpg" id="abimg" alt="书封"/></a>
+            <div id="abinfo">
+              <!-- 填写：书本各种信息 -->
+              <h1 style="color:#7d5b3e">一本书读懂财报</h1>
+              <p><strong>编号：</strong>251023-RB-FIN</p>
+              <p><strong>作者：</strong>肖星</p>
+              <p><strong>译者：</strong>-</p>
+              <p><strong>日期：</strong>2025.10.23</p>
+              <p><strong>出版：</strong>浙江大学出版社</p>
+              <p><strong>分类：</strong>工具书-金融</p>
+              <p><strong>渠道：</strong>纸书</p>
+              <p><strong>阶段：</strong>Conquer</p>
+            </div>
+          </div>  
+        </div>
+
+        <article id="article_container" class="article_content">
+          <h2 class="title" >· · · 摘抄 · · ·</h2>
+          <!-- 填写：摘抄/笔记/时间 -->
           <p><span class="original_text"><i class="fas fa-book fa-fw"></i> 利润表将可持续的营业利润与不可持续的营业外收支分别展示，又可以帮助企业推断出自己在未来一段时间内的收益。</span><br>
-          <span class="comment"><i class="far fa-edit fa-fw"></i> 未来收益推断的部分理解不是很深入。<span class="finish_date">2025.11.23</span></span><br><br>
+          <span class="comment"><i class="far fa-edit fa-fw"></i> 未来收益推断的部分理解不是很深入。
+          <span class="finish_date">2025.11.23</span></span><br><br>
 
           <span class="original_text"><i class="fas fa-book fa-fw"></i> 其实，不仅是应收账款，风险简直无处不在。比如说存货，随着市场价值的波动，存货的价值可能会减少。再比如说固定资产，随着使用年限不断增加，也会发生减值。甚至无形资产，也存在这样的问题。因此，资产得到保证对于获得净利润来说是一件很重要的事。</span><br>
-          <span class="comment"><i class="far fa-edit fa-fw"></i> 很重要的一段话，让我想到了分析浮盈和实盈，但是我总感觉自己对于最后一句话的理解还不够好。<span class="finish_date">2025.11.23</span></span><br><br>
+          <span class="comment"><i class="far fa-edit fa-fw"></i> 很重要的一段话，让我想到了分析浮盈和实盈，但是我总感觉自己对于最后一句话的理解还不够好。
+          <span class="finish_date">2025.11.23</span></span><br><br>
 
           <span class="original_text"><i class="fas fa-book fa-fw"></i> 的确如此，这三张报表实际上是站在两个不同的维度。在第一个维度上，现金流量表描述了一家企业能否生存下去，即所谓风险的视角；在第二个维度上，资产负债表和利润表则展示了倘若这家企业能够继续生存，它将是什么样子——有多少家底，又有多少收益，即所谓收益的视角。</span><br>
-          <span class="comment"><i class="far fa-edit fa-fw"></i> 不理解现金流量表的风险视角。<span class="finish_date">2025.11.23</span></span><br><br>
+          <span class="comment"><i class="far fa-edit fa-fw"></i> 不理解现金流量表的风险视角。
+          <span class="finish_date">2025.11.23</span></span><br><br>
 
           <span class="original_text"><i class="fas fa-book fa-fw"></i> 同型分析：各个项目占总资产or营业收入多少</span><br>
-          <span class="comment"><i class="far fa-edit fa-fw"></i> 这个其实只是总结了书中的意思，目的是为了记住“同型分析”这个词，因为这个词对于我来说平常不常见，但占比的比较感觉用的不少。<span class="finish_date">2025.11.23</span></span><br>
-          <span class="comment"><i class="far fa-edit fa-fw"></i> 不理解现金流量表的风险视角。<span class="finish_date">2025.12.31</span></span><br><br>
+          <span class="comment"><i class="far fa-edit fa-fw"></i> 这个其实只是总结了书中的意思，目的是为了记住“同型分析”这个词，因为这个词对于我来说平常不常见，但占比的比较感觉用的不少。
+          <span class="finish_date">2025.11.23</span></span><br><br>
 
           <span class="original_text"><i class="fas fa-book fa-fw"></i> 毛利率其实反映了整个行业的竞争环境；应收账款和存货反映了企业和它下游购买方的关系；而应付账款则从侧面表现出企业上游供应商的谈判能力；另外，固定资产在总资产中的占比反映了这个行业的基本特征；最后，总资产周转率让我们可以了解企业的管理状况。</span><br>
-          <span class="comment"><i class="far fa-edit fa-fw"></i><span class="finish_date">2025.11.23</span> 这段话在分析公司主营业务的时候是很重要的。</span><br>
-          <span class="comment"><i class="far fa-edit fa-fw"></i><span class="finish_date">2025.12.31</span> 不理解现金流量表的风险视角。</span><br></p>
+          <span class="comment"><i class="far fa-edit fa-fw"></i>这段话在分析公司主营业务的时候是很重要的。
+          <span class="finish_date">2025.11.23</span> </span><br></p>
 
           <h2 class="title">· · · 小评 · · ·</h2>
+          <!-- 填写：时间/书评，换行令起p -->
           <span class="finish_date_c"><i class="fas fa fa-map-pin fa-fw"></i>&nbsp;&nbsp;2025.11.23&nbsp;&nbsp;<i class="fas fa fa-map-pin fa-fw"></i></span>
           <p id="book_review">嘿嘿，因为实习和学业（主要是懒），没想到这次读完和小评之间隔了这么久，刚刚好好一个月啦（还是今天逼着自己赶紧写，希望不要写的太乱叭）。读这本书的契机，和保险课程也有关系（就是和《66节保险法商课》一样，老师推荐滴）。</p>
           <p id="book_review">说实话，因为之前考研的原因（最狠的时候，每天轮流默写一张资产负债表、利润表和现金流量表），其实我对这块“基础”应该是还很ok的，看这本书的心态也是属于“看看这本书能不能给我一个新的视角”。那结论是，前面介绍3张表的内容，虽然确实讲的很通俗易懂，但是对我来说除了让我有点“哇确实也可以这么介绍”的感觉之外，并没有过多全新的知识。而最后几章介绍分析公司的部分，确实有些地方介绍的很好（虽然有些不太懂），我也准备记录在摘抄里（这次不准备做笔记了，因为感觉这次想记的东西有点少，很碎也不能形成体系，等以后如果想搞财报专题的笔记时再来参考一下吧）。总的来说，这本书确实能够很好地帮助初学者了解财务报表这方面的知识，做到全面的介绍，感兴趣的话是可以看看的。在这里插入一句题外话，根据我的学习生涯来看，学校真应该开一个专门讲财报分析的课程，感觉很多人真的不熟。虽然我个人可能会觉得会计这个领域能够创新的地方真的有限，但是学好、学透会计并能深入看懂财报真的很难，我也希望自己能做到这一点。</p>
@@ -370,80 +315,58 @@
           <p id="book_review">嘿嘿，因为实习和学业（主要是懒），没想到这次读完和小评之间隔了这么久，刚刚好好一个月啦（还是今天逼着自己赶紧写，希望不要写的太乱叭）。读这本书的契机，和保险课程也有关系（就是和《66节保险法商课》一样，老师推荐滴）。</p>
           <p id="book_review">说实话，因为之前考研的原因（最狠的时候，每天轮流默写一张资产负债表、利润表和现金流量表），其实我对这块“基础”应该是还很ok的，看这本书的心态也是属于“看看这本书能不能给我一个新的视角”。那结论是，前面介绍3张表的内容，虽然确实讲的很通俗易懂，但是对我来说除了让我有点“哇确实也可以这么介绍”的感觉之外，并没有过多全新的知识。而最后几章介绍分析公司的部分，确实有些地方介绍的很好（虽然有些不太懂），我也准备记录在摘抄里（这次不准备做笔记了，因为感觉这次想记的东西有点少，很碎也不能形成体系，等以后如果想搞财报专题的笔记时再来参考一下吧）。总的来说，这本书确实能够很好地帮助初学者了解财务报表这方面的知识，做到全面的介绍，感兴趣的话是可以看看的。在这里插入一句题外话，根据我的学习生涯来看，学校真应该开一个专门讲财报分析的课程，感觉很多人真的不熟。虽然我个人可能会觉得会计这个领域能够创新的地方真的有限，但是学好、学透会计并能深入看懂财报真的很难，我也希望自己能做到这一点。</p>
 
-      <h2 class="title">· · · 额外补充 · · ·</h2>  
-        <h3 style="font-weight: bold;"><i class="fa fa-tags fa-fw"></i> 章节标题</h3>
-        <p>1.资产负债表：企业的照相机</p>
-        <p>2.利润表：企业的摄影机</p>
-        <p>3.财务报表的诞生和内在逻辑</p>
-        <p>4.解剖现金流量表</p>
-        <p>5.活用三张报表，打通财务数据筋脉</p>
-        <p>6.找出影响财务数据的因素</p>
-        <p>7.怎样的公司才算是好公司？</p>
-        <p>8.给自己的公司照镜子</p>
-        <p>9.控制风险的要诀</p>
-        <p>10.结语</p>
+          <h2 class="title">· · · 额外补充 · · ·</h2> 
+          <!-- 填写：若有，如角色，章节，收录等 --> 
+          <h3 style="font-weight: bold;"><i class="fa fa-tags fa-fw"></i> 章节标题</h3>
+          <p>1.资产负债表：企业的照相机</p>
+          <p>2.利润表：企业的摄影机</p>
+          <p>3.财务报表的诞生和内在逻辑</p>
+          <p>4.解剖现金流量表</p>
+          <p>5.活用三张报表，打通财务数据筋脉</p>
+          <p>6.找出影响财务数据的因素</p>
+          <p>7.怎样的公司才算是好公司？</p>
+          <p>8.给自己的公司照镜子</p>
+          <p>9.控制风险的要诀</p>
+          <p>10.结语</p>
 
-      </article>
-      
-    
-      
-    </main>
+        </article>
 
-    <!-- 4.右侧辅助栏 -->
-    <div id="rightside">       
-      <button id="go_up" type="button">
-        <span class="scroll-percent"></span>
-        <i class="fas fa-angle-up fa-2x"></i>
-      </button>
+      </main>
+
+      <div id="rightside">       
+        <button id="go_up" type="button">
+          <span class="scroll-percent"></span>
+          <i class="fas fa-angle-up fa-2x"></i>
+        </button>
+      </div>
+
     </div>
-</div>
 
-    <!-- 3.页脚 -->
-    <footer id="footer"> <!-- 记得改背景图 -->
+    <footer id="footer"> 
       <div class="copyright">&copy;<span id="current-year"></span> by cliwarmth</div>
-      <!-- 2.2 版权信息 -->
       <div class="copyright_notice">
         <span>版权声明: </span>
-        <span>转载请联系作者并注明来源<a href="https://xxx" target="_blank" class="hylink">https://xxx</a></span> <!-- 网址首页，记得改 -->
+        <span>转载请联系作者并注明来源<a href="https://cliwarmth.github.io/starlink/" target="_blank" class="hylink">https://cliwarmth.github.io/starlink/</a></span>
       </div>
     </footer>
 
-
-     <!-- 2. 搜索弹窗（包含：遮罩层 + 弹窗内容） -->
     <div id="search-modal" class="search-modal">
-        <!-- 2.1 遮罩层（点击遮罩可关闭弹窗） -->
-        <div class="modal-mask"></div>
-
-        <!-- 2.2 弹窗内容（居中显示，包含关闭按钮+完整搜索栏+学生列表） -->
-        <div class="modal-content">
-            <!-- 2.2.1 关闭按钮 -->
-            <div id="close-btn" class="close-btn">×</div>
-
-            <!-- 2.2.2 弹窗内的完整搜索栏（和之前的搜索栏一致） -->
-            <div class="search-box">
-                <input type="text" id="search-input" placeholder="输入书名或作者">
-                <!-- <button id="search-btn">搜索</button> -->
-            </div>
-            
-            <div id="result-container"></div>
-        </div>
+      <div class="modal-mask"></div>
+      <div class="modal-content">
+        <div id="close-btn" class="close-btn">×</div>
+        <div class="search-box">
+          <input type="text" id="search-input" placeholder="输入书名或作者">
+        </div>           
+        <div id="result-container"></div>
+      </div>
     </div>
-    </div>
+  </div>
 
-    <!-- 5.调用js -->
-    <div>
-      <script src="/starlink/reading/book_js/book.js"></script> <!-- 页面核心交互 -->
-      <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script> <!-- fancybox -->
-    </div>
+  <div>
+    <script src="/starlink/reading/book_js/book.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script>
+  </div>
 
-    <!-- 测试用，完事后放入book.js -->
-    <script>
-
-</script>
-  </body>
-
+</body>
 
 </html>
-
-
-
