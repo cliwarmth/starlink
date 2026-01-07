@@ -27,15 +27,15 @@
 /* 字体 */
 @font-face { /* 常规字体 */
   font-family: "roundregular"; /* 自定义字体名称（可随便取，后续调用用这个名字） */
-  src: url("../starlink/reading/book_fonts/ChillRoundFRegular.otf") format("otf"), /* 优先加载otf格式 */
-       url("../starlink/reading/book_fonts/ChillRoundFRegular.ttf") format("truetype"); /* 兜底ttf格式 */
+  src: url("/starlink/reading/book_fonts/ChillRoundFRegular.otf") format("otf"), /* 优先加载otf格式 */
+       url("/starlink/reading/book_fonts/ChillRoundFRegular.ttf") format("truetype"); /* 兜底ttf格式 */
   font-weight: normal; /* 字体粗细：normal（常规）、bold（粗体），按需设置 */
   font-style: normal; /* 字体样式：normal（常规）、italic（斜体），按需设置 */
 }
 @font-face { /* 常规字体 */
   font-family: "roundbold"; /* 自定义字体名称（可随便取，后续调用用这个名字） */
-  src: url("../starlink/reading/book_fonts/ChillRoundFBold.otf") format("otf"), /* 优先加载otf格式 */
-       url("../starlink/reading/book_fonts/ChillRoundFBold.ttf") format("truetype"); /* 兜底ttf格式 */
+  src: url("/starlink/reading/book_fonts/ChillRoundFBold.otf") format("otf"), /* 优先加载otf格式 */
+       url("/starlink/reading/book_fonts/ChillRoundFBold.ttf") format("truetype"); /* 兜底ttf格式 */
   font-weight: normal; /* 字体粗细：normal（常规）、bold（粗体），按需设置 */
   font-style: normal; /* 字体样式：normal（常规）、italic（斜体），按需设置 */
 }
@@ -572,5 +572,6 @@ body {
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.08);
   z-index: 1;
 }
+
 
 
