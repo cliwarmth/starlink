@@ -16,7 +16,7 @@ window.addEventListener('scroll', function() {
 /* 获取当前年份 */
 const currentYear = new Date().getFullYear();
 // 把年份插入到指定元素中
-document.getElementById('current-year').textContent = currentYear;
+document.getElementById('currentyear').textContent = currentYear;
 
 
 /* go_up滚动时出现动画 */
@@ -301,4 +301,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
 
