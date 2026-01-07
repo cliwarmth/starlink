@@ -13,7 +13,6 @@ window.addEventListener('scroll', function() {
 }
 );
 
-
 /* go_up滚动时出现动画 */
 // 1. 获取按钮容器元素
 const goup = document.getElementById('go_up');
@@ -295,6 +294,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
 
 
 
