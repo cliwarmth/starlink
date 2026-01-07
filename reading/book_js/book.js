@@ -89,8 +89,7 @@ goup.addEventListener('click', function() {
 //   { bookTitle: "JavaScript 基础入门3", bookAuthor: "王五", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#"  }   // 书名4 → 作者王五
 // ];
  
-let testData = null; // 全局变量，初始值随便设，比如null
-本地不能尝试，有网络协议限制
+let testData = null; // 全局变量，初始值随便设，比如null 本地不能尝试，有网络协议限制
 // 2. fetch读取数据并赋值给全局变量
 fetch("/starlink/reading/search.json")
   .then(res => res.json())
@@ -301,6 +300,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
 
 
 
