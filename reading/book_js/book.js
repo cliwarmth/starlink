@@ -74,29 +74,29 @@ goup.addEventListener('click', function() {
 
 
 
-const testData = [
-  { bookTitle: "CSS 弹性布局实战", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#"},  // 书名1 → 作者张三
-  { bookTitle: "Node.js 后端接口搭建", bookAuthor: "李四", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" }, // 书名2 → 作者李四
-  { bookTitle: "前端搜索功能优化", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },    // 书名3 → 作者张三
-  { bookTitle: "JavaScript 基础入门", bookAuthor: "王五", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },   // 书名4 → 作者王五
-  { bookTitle: "CSS 弹性布局实战2", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },  // 书名1 → 作者张三
-  { bookTitle: "Node.js 后端接口搭建2", bookAuthor: "李四", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" }, // 书名2 → 作者李四
-  { bookTitle: "前端搜索功能优化2", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },    // 书名3 → 作者张三
-  { bookTitle: "JavaScript 基础入门2", bookAuthor: "王五", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },  // 书名4 → 作者王五
-  { bookTitle: "CSS 弹性布局实战3", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },  // 书名1 → 作者张三
-  { bookTitle: "Node.js 后端接口搭建3", bookAuthor: "李四", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" }, // 书名2 → 作者李四
-  { bookTitle: "前端搜索功能优化3", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },    // 书名3 → 作者张三
-  { bookTitle: "JavaScript 基础入门3", bookAuthor: "王五", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#"  }   // 书名4 → 作者王五
-];
+// const testData = [
+//   { bookTitle: "CSS 弹性布局实战", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#"},  // 书名1 → 作者张三
+//   { bookTitle: "Node.js 后端接口搭建", bookAuthor: "李四", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" }, // 书名2 → 作者李四
+//   { bookTitle: "前端搜索功能优化", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },    // 书名3 → 作者张三
+//   { bookTitle: "JavaScript 基础入门", bookAuthor: "王五", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },   // 书名4 → 作者王五
+//   { bookTitle: "CSS 弹性布局实战2", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },  // 书名1 → 作者张三
+//   { bookTitle: "Node.js 后端接口搭建2", bookAuthor: "李四", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" }, // 书名2 → 作者李四
+//   { bookTitle: "前端搜索功能优化2", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },    // 书名3 → 作者张三
+//   { bookTitle: "JavaScript 基础入门2", bookAuthor: "王五", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },  // 书名4 → 作者王五
+//   { bookTitle: "CSS 弹性布局实战3", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },  // 书名1 → 作者张三
+//   { bookTitle: "Node.js 后端接口搭建3", bookAuthor: "李四", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" }, // 书名2 → 作者李四
+//   { bookTitle: "前端搜索功能优化3", bookAuthor: "张三", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#" },    // 书名3 → 作者张三
+//   { bookTitle: "JavaScript 基础入门3", bookAuthor: "王五", imgUrl: "./book_img/bc251023.jpg", linkUrl: "#"  }   // 书名4 → 作者王五
+// ];
  
-// let testData = null; // 全局变量，初始值随便设，比如null
-// 本地不能尝试，有网络协议限制
-// // 2. fetch读取数据并赋值给全局变量
-// fetch("/starlink/reading/search.json")
-//   .then(res => res.json())
-//   .then(data => {
-//     testData = data; // 把读取到的JSON数据，存到myJsonData里
-//   });
+let testData = null; // 全局变量，初始值随便设，比如null
+本地不能尝试，有网络协议限制
+// 2. fetch读取数据并赋值给全局变量
+fetch("/starlink/reading/search.json")
+  .then(res => res.json())
+  .then(data => {
+    testData = data; // 把读取到的JSON数据，存到myJsonData里
+  });
 
 
 
@@ -301,3 +301,4 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
 });
+
