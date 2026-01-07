@@ -92,7 +92,7 @@ const testData = [
 // let testData = null; // 全局变量，初始值随便设，比如null
 // 本地不能尝试，有网络协议限制
 // // 2. fetch读取数据并赋值给全局变量
-// fetch("search.json")
+// fetch("/starlink/reading/search.json")
 //   .then(res => res.json())
 //   .then(data => {
 //     testData = data; // 把读取到的JSON数据，存到myJsonData里
@@ -299,4 +299,5 @@ document.addEventListener('DOMContentLoaded', function() {
     clickOutside: "close",
     animationEffect: "fade"
   });
+
 });
