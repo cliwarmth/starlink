@@ -18,17 +18,17 @@
     <meta property="og:site_name" content="Project Starlink"> <!-- 分享卡片中标题下方的小字标注 -->
     <meta property="og:description" content="星星连成线，那是我的过往"> <!-- 分享卡片的描述文字 -->
     <meta property="og:locale" content="zh_CN"> <!-- 定义页面的语言/地区 -->
-    <meta property="og:image" content="book_img/bc20251023.jpg"> <!-- 分享卡片的预览图片，记得改成该图片的位置 -->
+    <meta property="og:image" content="/starlink/book_img/bc20251023.jpg"> <!-- 分享卡片的预览图片，记得改成该图片的位置 -->
     <meta property="article:author" content="cliwarmth"> <!-- 定义页面 / 文章的作者 -->
       <!-- 1.1.1 若是article，可以进一步配置，可以不写 -->
       <meta property="article:published_time" content="2025-10-23T04:00:00.000Z">  <!-- 文章首次发布时间 -->
       <meta property="article:modified_time" content="2025-10-23T04:00:00.000Z"> <!-- 文章最后修改/更新时间 -->
       <meta property="article:tag" content="xxx"> <!-- 分类标签/关键词，可以叠加 -->
-  <link rel="shortcut icon" href="book_img/bookicon.png"> <!-- 打开网页时，浏览器标签栏左侧显示的那个小图片，记得改成该图片的相对位置 -->
+  <link rel="shortcut icon" href="/starlink/book_img/bookicon.png"> <!-- 打开网页时，浏览器标签栏左侧显示的那个小图片，记得改成该图片的相对位置 -->
   <link rel="canonical" href="https://xxx"> <!-- 规范搜索引擎链接，记得改成该网页的位置 -->
   <!-- <link rel="preconnect" href="//cdn.jsdelivr.net"/> --> <!-- 提前和 jsDelivr 的服务器建立网络连接，加速链接，test阶段先不用 -->
   <!-- <link rel="preconnect" href="//busuanzi.sukap.cn"/> --> <!-- 提前和 不蒜子 的服务器建立网络连接，提供统计，test阶段先不用 -->
-  <link rel="stylesheet" href="book_css/book.css"> <!-- 引入外部 CSS 样式表，初期阶段先不用，建好再用 -->
+  <link rel="stylesheet" href="/starlink/book_css/book.css"> <!-- 引入外部 CSS 样式表，初期阶段先不用，建好再用 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"> <!-- 引入所有 Font Awesome 免费图标，初期阶段先不用，建好再用 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"> <!-- 引入 Fancybox 图片预览插件，初期阶段先不用，建好再用 -->
   
@@ -272,7 +272,7 @@
   <!-- 1. 页面主体设置 -->
   <div id="body" class="page" style="color:#5d3d21"> <!-- id="body" 是唯一标识，class="page" 是样式类（控制整体布局） -->
     <!-- 1.1 页面头部（导航栏）-->  
-    <header id="page_header" class="not_home_page"> <!--  style="background-image: url('img/一本书读懂财报.jpg');height: 400px;background-size: cover;"-->    
+    <header id="page_header" class="not_home_page"> <!--  style="background-image: url('/starlink/img/一本书读懂财报.jpg');height: 400px;background-size: cover;"-->    
       <div class="nav-bg"></div>
       <nav id="nav"> <!-- 导航栏核心容器：id="nav" -->     
         <!-- 1.1.1 左侧回到首页-->
@@ -289,12 +289,12 @@
             <span> 搜索</span>
           </a>
           <!--(2) 首页 -->
-          <a class="hylink" href="/book/"> <!-- 可改链接 -->
+          <a class="hylink" href="/"> <!-- 可改链接 -->
             <i class="fa-fw fas fa-home"></i>
             <span> 首页</span>
           </a>
           <!-- (3) 关于 -->
-          <a class="hylink" href="/about/"> <!-- 可改链接 -->
+          <a class="hylink" href="/starlink/about.html"> <!-- 可改链接 -->
             <i class="fa-fw fas fa-solid fa-user"></i>
             <span> 关于</span>
           </a>
@@ -325,7 +325,7 @@
       </div>
       <div id="mobile_only">
       <div id="abstract_content"> <!-- id="abstract_content" 是给这个侧边柜起“唯一名字”，方便CSS控制位置/样式（比如隐藏、改颜色） -->
-        <a data-fancybox="gallery2" href="book_img/bc251023.jpg"><img src="book_img/bc251023.jpg" id="abimg" alt="书封"/></a> <!-- 记得改 -->
+        <a data-fancybox="gallery2" href="/starlink/book_img/bc251023.jpg"><img src="/starlink/book_img/bc251023.jpg" id="abimg" alt="书封"/></a> <!-- 记得改 -->
         <div id="abinfo">
           <h1 style="color:#7d5b3e">一本书读懂财报</h1>
           <p><strong>编号：</strong>251023-RB-FIN</p>
@@ -339,7 +339,7 @@
         </div>
       </div>  
       </div>
-     <a data-fancybox="gallery2" href="book_img/251023book2.jpg"><a data-fancybox="gallery" href="book_img/251023book2.jpg"><img src="book_img/251023book2.jpg" id="abimg" alt="书封"/></a></a> <!-- 记得改 -->
+     <a data-fancybox="gallery2" href="/starlink/book_img/251023book2.jpg"><a data-fancybox="gallery" href="/starlink/book_img/251023book2.jpg"><img src="book_img/251023book2.jpg" id="abimg" alt="书封"/></a></a> <!-- 记得改 -->
       
       <!-- 2.1 文字区域 -->
       <article id="article_container" class="article_content">
@@ -432,7 +432,7 @@
 
     <!-- 5.调用js -->
     <div>
-      <script src="book_js/book.js"></script> <!-- 页面核心交互 -->
+      <script src="/starlink/book_js/book.js"></script> <!-- 页面核心交互 -->
       <script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script> <!-- fancybox -->
     </div>
 
@@ -441,5 +441,6 @@
 
 </script>
   </body>
+
 
 </html>
