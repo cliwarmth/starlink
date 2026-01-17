@@ -99,7 +99,8 @@ document.addEventListener('DOMContentLoaded', function() {
           title: book.bookTitle,
           author: book.bookAuthor,
           searchUrl: book.searchUrl,
-          code: book.code
+          code: book.code,
+          linkUrl: book.linkUrl
         });
     }});
     const matchResultsorted = matchResult.sort((a, b) => {
@@ -160,12 +161,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 });
-let linkData = null;
-fetch("/starlink/reading/library.json")
-  .then(res => res.json())
-  .then(data => {
-    linkData = data;
-  });
+
 function updateBgSubText() {
   const bgSubText = document.querySelector('#totalnum');
   const totalCount = linkData.length;
@@ -366,3 +362,4 @@ function debounceCalcMaxCount() {
 window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
+
