@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
 });
 
-
+function yourTargetFunction() {
 function updateBgSubText() {
   const bgSubText = document.querySelector('#totalnum');
   const totalCount = linkData.length;
@@ -365,3 +365,14 @@ window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
 
+console.log('执行目标功能，linkData=', linkData);
+}
+function waitForFetchThenRun() {
+  const check = setInterval(() => {
+    if (linkData) {
+      clearInterval(check); 
+      yourTargetFunction(); 
+    }
+  }, 100);
+}
+waitForFetchThenRun();
