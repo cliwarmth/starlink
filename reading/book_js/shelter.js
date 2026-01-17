@@ -164,13 +164,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
 });
 
-function updateBgSubText() {
-  const bgSubText = document.querySelector('#totalnum');
-  const totalCount = linkData.length;
-  bgSubText.textContent = `Numbers ${totalCount}`;
-}
 function yourTargetFunction() {
-updateBgSubText()
 const pageSize = 12;
 let currentPage = 1;
 const totalLinks = linkData.length;
@@ -372,6 +366,7 @@ function waitForFetchThenRun() {
   }, 100);
 }
 waitForFetchThenRun();
+
 
 
 
