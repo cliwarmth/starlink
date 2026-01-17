@@ -160,6 +160,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 });
+let linkData = null;
+fetch("/starlink/reading/library.json")
+  .then(res => res.json())
+  .then(data => {
+    linkData = data;
+  });
 function updateBgSubText() {
   const bgSubText = document.querySelector('#totalnum');
   const totalCount = linkData.length;
@@ -168,7 +174,7 @@ function updateBgSubText() {
 window.addEventListener('DOMContentLoaded', () => {
   updateBgSubText();
 });
-const pageSize = 24;
+const pageSize = 12;
 let currentPage = 1;
 const totalLinks = linkData.length;
 const totalPages = Math.ceil(totalLinks / pageSize);
@@ -358,4 +364,5 @@ function debounceCalcMaxCount() {
   resizeDebounceTimer = setTimeout(calcMaxCount, DEBOUNCE_DELAY);
 }
 window.onload = calcMaxCount;
+
 window.addEventListener("resize", calcMaxCount);
