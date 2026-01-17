@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
           author: book.bookAuthor,
           searchUrl: book.searchUrl,
           code: book.code,
-          linkUrlL: book.linkUrl
+          linkUrl: book.linkUrl
         });
     }});
     const matchResultsorted = matchResult.sort((a, b) => {
@@ -362,4 +362,5 @@ function debounceCalcMaxCount() {
   resizeDebounceTimer = setTimeout(calcMaxCount, DEBOUNCE_DELAY);
 }
 window.onload = calcMaxCount;
+
 window.addEventListener("resize", calcMaxCount);
