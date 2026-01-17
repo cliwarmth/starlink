@@ -160,9 +160,7 @@ document.addEventListener('DOMContentLoaded', function() {
       handleManualSearch();
     }
   };
-});
-
-function updateBgSubText() {
+  function updateBgSubText() {
   const bgSubText = document.querySelector('#totalnum');
   const totalCount = linkData.length;
   bgSubText.textContent = `Numbers ${totalCount}`;
@@ -362,4 +360,8 @@ function debounceCalcMaxCount() {
 window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
+});
+
+
+
 
