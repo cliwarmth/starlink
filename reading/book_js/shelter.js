@@ -36,14 +36,16 @@ goup.addEventListener('click', function() {
       window.scrollTo(0, currentScrollTop);
     }, interval);
   });
- 
+const linkDataLoadedEvent = new Event('linkDataLoaded');
+function loadBookData() {
 let linkData = null;
 fetch("/starlink/reading/library.json")
   .then(res => res.json())
   .then(data => {
     linkData = data;
+    document.dispatchEvent(linkDataLoadedEvent);
   });
-
+}
 document.addEventListener('DOMContentLoaded', function() {
   const input = document.getElementById('search-input');
   const btn = document.getElementById('search-btn');
@@ -160,7 +162,9 @@ document.addEventListener('DOMContentLoaded', function() {
       handleManualSearch();
     }
   };
-  function updateBgSubText() {
+});
+document.addEventListener('linkDataLoaded', function() {
+ function updateBgSubText() {
   const bgSubText = document.querySelector('#totalnum');
   const totalCount = linkData.length;
   bgSubText.textContent = `Numbers ${totalCount}`;
@@ -361,7 +365,6 @@ window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
 });
-
 
 
 
