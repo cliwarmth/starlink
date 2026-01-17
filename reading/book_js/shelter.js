@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   };
 });
-document.addEventListener('linkDataLoaded', function() {
+document.addEventListener('linkDataLoaded', async function() {
  function updateBgSubText() {
   const bgSubText = document.querySelector('#totalnum');
   const totalCount = linkData.length;
@@ -365,6 +365,7 @@ window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
 });
+
 
 
 
