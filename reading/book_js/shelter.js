@@ -36,16 +36,14 @@ goup.addEventListener('click', function() {
       window.scrollTo(0, currentScrollTop);
     }, interval);
   });
-const linkDataLoadedEvent = new Event('linkDataLoaded');
-function loadBookData() {
+ 
 let linkData = null;
 fetch("/starlink/reading/library.json")
   .then(res => res.json())
   .then(data => {
     linkData = data;
-    document.dispatchEvent(linkDataLoadedEvent);
   });
-}
+
 document.addEventListener('DOMContentLoaded', function() {
   const input = document.getElementById('search-input');
   const btn = document.getElementById('search-btn');
@@ -102,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
           author: book.bookAuthor,
           searchUrl: book.searchUrl,
           code: book.code,
-          linkUrl: book.linkUrl
+          linkUrlL: book.linkUrl
         });
     }});
     const matchResultsorted = matchResult.sort((a, b) => {
@@ -162,9 +160,11 @@ document.addEventListener('DOMContentLoaded', function() {
       handleManualSearch();
     }
   };
+  
 });
-document.addEventListener('linkDataLoaded', async function() {
- function updateBgSubText() {
+
+
+function updateBgSubText() {
   const bgSubText = document.querySelector('#totalnum');
   const totalCount = linkData.length;
   bgSubText.textContent = `Numbers ${totalCount}`;
@@ -172,7 +172,7 @@ document.addEventListener('linkDataLoaded', async function() {
 window.addEventListener('DOMContentLoaded', () => {
   updateBgSubText();
 });
-const pageSize = 12;
+const pageSize = 24;
 let currentPage = 1;
 const totalLinks = linkData.length;
 const totalPages = Math.ceil(totalLinks / pageSize);
@@ -362,10 +362,4 @@ function debounceCalcMaxCount() {
   resizeDebounceTimer = setTimeout(calcMaxCount, DEBOUNCE_DELAY);
 }
 window.onload = calcMaxCount;
-
 window.addEventListener("resize", calcMaxCount);
-});
-
-
-
-
