@@ -172,7 +172,7 @@ function updateBgSubText() {
 window.addEventListener('DOMContentLoaded', () => {
   updateBgSubText();
 });
-const pageSize = 24;
+const pageSize = 12;
 let currentPage = 1;
 const totalLinks = linkData.length;
 const totalPages = Math.ceil(totalLinks / pageSize);
@@ -364,3 +364,4 @@ function debounceCalcMaxCount() {
 window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
+
