@@ -170,6 +170,7 @@ function updateBgSubText() {
   bgSubText.textContent = `Numbers ${totalCount}`;
 }
 function yourTargetFunction() {
+updateBgSubText()
 const pageSize = 12;
 let currentPage = 1;
 const totalLinks = linkData.length;
@@ -367,10 +368,10 @@ function waitForFetchThenRun() {
     if (linkData) {
       clearInterval(check); 
       yourTargetFunction(); 
-      updateBgSubText()
     }
   }, 100);
 }
 waitForFetchThenRun();
+
 
 
