@@ -2,5 +2,6 @@
 [
   { "bookTitle": "一本书读懂财报", "bookAuthor": "肖星", "code": "251023-RB-FIN", 
   "searchUrl": "/starlink/reading/book_img/bc251023.jpg", "imgUrl": "/starlink/reading/book_img/bc251023h.png", 
-  "linkUrl": "/starlink/reading/251023.html"  }
+  "linkUrl": "https://cliwarmth.github.io/starlink/reading/251023.html"  }
+
 ]  
