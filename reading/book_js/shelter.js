@@ -42,10 +42,6 @@ fetch("/starlink/reading/library.json")
   .then(res => res.json())
   .then(data => {
     linkData = data;
-    const bgSubText = document.getElementById('bgSubText');
-    if (bgSubText) {
-      const totalCount = linkData.length;
-      bgSubText.textContent = `Numbers ${totalCount}`;
     }
   });
 
@@ -168,10 +164,12 @@ document.addEventListener('DOMContentLoaded', function() {
   
 });
 
+function updateBgSubText() {
+  const bgSubText = document.querySelector('#totalnum');
+  const totalCount = linkData.length;
+  bgSubText.textContent = `Numbers ${totalCount}`;
+}
 function yourTargetFunction() {
-window.addEventListener('DOMContentLoaded', () => {
-  updateBgSubText();
-});
 const pageSize = 12;
 let currentPage = 1;
 const totalLinks = linkData.length;
@@ -369,8 +367,10 @@ function waitForFetchThenRun() {
     if (linkData) {
       clearInterval(check); 
       yourTargetFunction(); 
+      updateBgSubText()
     }
   }, 100);
 }
 waitForFetchThenRun();
+
 
