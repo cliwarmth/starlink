@@ -42,6 +42,11 @@ fetch("/starlink/reading/library.json")
   .then(res => res.json())
   .then(data => {
     linkData = data;
+    const bgSubText = document.getElementById('bgSubText');
+    if (bgSubText) {
+      const totalCount = linkData.length;
+      bgSubText.textContent = `Numbers ${totalCount}`;
+    }
   });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -164,11 +169,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function yourTargetFunction() {
-function updateBgSubText() {
-  const bgSubText = document.querySelector('#totalnum');
-  const totalCount = linkData.length;
-  bgSubText.textContent = `Numbers ${totalCount}`;
-}
 window.addEventListener('DOMContentLoaded', () => {
   updateBgSubText();
 });
@@ -362,10 +362,7 @@ function debounceCalcMaxCount() {
   resizeDebounceTimer = setTimeout(calcMaxCount, DEBOUNCE_DELAY);
 }
 window.onload = calcMaxCount;
-
 window.addEventListener("resize", calcMaxCount);
-
-console.log('执行目标功能，linkData=', linkData);
 }
 function waitForFetchThenRun() {
   const check = setInterval(() => {
@@ -376,3 +373,4 @@ function waitForFetchThenRun() {
   }, 100);
 }
 waitForFetchThenRun();
+
