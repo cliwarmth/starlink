@@ -43,6 +43,8 @@ fetch("/starlink/reading/library.json")
   .then(data => {
     linkData = data;
     }
+  .then(linkData => {
+    BookListShow(linkData);
   });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -164,7 +166,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
 });
 
-function yourTargetFunction() {
+function BookListShow() {
 const pageSize = 12;
 let currentPage = 1;
 const totalLinks = linkData.length;
@@ -357,15 +359,7 @@ function debounceCalcMaxCount() {
 window.onload = calcMaxCount;
 window.addEventListener("resize", calcMaxCount);
 }
-function waitForFetchThenRun() {
-  const check = setInterval(() => {
-    if (linkData) {
-      clearInterval(check); 
-      yourTargetFunction(); 
-    }
-  }, 100);
-}
-waitForFetchThenRun();
+
 
 
 
