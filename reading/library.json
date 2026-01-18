@@ -2,6 +2,11 @@
 [
   { "bookTitle": "一本书读懂财报", "bookAuthor": "肖星", "code": "251023-RB-FIN", 
   "searchUrl": "/starlink/reading/book_img/bc251023.jpg", "imgUrl": "/starlink/reading/book_img/bc251023h.png", 
-  "linkUrl": "https://cliwarmth.github.io/starlink/reading/251023.html"  }
-
+  "linkUrl": "/starlink/reading/251023.html"  },
+  { "bookTitle": "窄门", "bookAuthor": "[法]安德烈·纪德", "code": "251009-LFM.L-LUV", 
+  "searchUrl": "/starlink/reading/book_img/bc251009.jpg", "imgUrl": "/starlink/reading/book_img/bc251009h.png", 
+  "linkUrl": "/starlink/reading/251009.html"  },
+  { "bookTitle": "架空犯", "bookAuthor": "[日]东野圭吾", "code": "251007-LFM.A-DN", 
+  "searchUrl": "/starlink/reading/book_img/bc251007.jpg", "imgUrl": "/starlink/reading/book_img/bc251007h.png", 
+  "linkUrl": "/starlink/reading/251007.html"  }
 ]  
