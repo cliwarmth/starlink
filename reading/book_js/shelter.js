@@ -163,7 +163,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
 });
 
-
+function booklistShow(){
 function updateBgSubText() {
   const bgSubText = document.querySelector('#totalnum');
   const totalCount = linkData.length;
@@ -364,4 +364,5 @@ function debounceCalcMaxCount() {
 window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
+}
 
