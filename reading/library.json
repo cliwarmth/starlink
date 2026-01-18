@@ -8,5 +8,14 @@
   "linkUrl": "/starlink/reading/251009.html"  },
   { "bookTitle": "架空犯", "bookAuthor": "[日]东野圭吾", "code": "251007-LFM.A-DN", 
   "searchUrl": "/starlink/reading/book_img/bc251007.jpg", "imgUrl": "/starlink/reading/book_img/bc251007h.png", 
-  "linkUrl": "/starlink/reading/251007.html"  }
+  "linkUrl": "/starlink/reading/251007.html"  },
+  { "bookTitle": "草木春秋", "bookAuthor": "汪曾祺", "code": "250908-CSF.L-EB", 
+  "searchUrl": "/starlink/reading/book_img/bc250908.jpg", "imgUrl": "/starlink/reading/book_img/bc250908h.png", 
+  "linkUrl": "/starlink/reading/250908.html"  },
+  { "bookTitle": "盛夏方程式", "bookAuthor": "[日]东野圭吾", "code": "250703H-LFM.A-DN", 
+  "searchUrl": "/starlink/reading/book_img/bc250703.jpg", "imgUrl": "/starlink/reading/book_img/bc250703h.png", 
+  "linkUrl": "/starlink/reading/250703.html"  },
+  { "bookTitle": "毕业", "bookAuthor": "[日]东野圭吾", "code": "250611H-LFM.A-DN", 
+  "searchUrl": "/starlink/reading/book_img/bc250611.jpg", "imgUrl": "/starlink/reading/book_img/bc250611h.png", 
+  "linkUrl": "/starlink/reading/250611.html"  }
 ]  
