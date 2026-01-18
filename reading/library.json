@@ -35,5 +35,14 @@
   "linkUrl": "/starlink/reading/book_html/240801.html"  },
   { "bookTitle": "我的心中每天开出一朵花", "bookAuthor": "幾米", "code": "240623-CPM.A-PB", 
   "searchUrl": "/starlink/reading/book_img/bc240623.jpg", "imgUrl": "/starlink/reading/book_img/bc240623h.png", 
-  "linkUrl": "/starlink/reading/book_html/240623.html"  }
+  "linkUrl": "/starlink/reading/book_html/240623.html"  },
+  { "bookTitle": "怪谈·奇谭", "bookAuthor": "[日]小泉八云", "code": "240622-CSF.A-FL/MT", 
+  "searchUrl": "/starlink/reading/book_img/bc240622.jpg", "imgUrl": "/starlink/reading/book_img/bc240622h.png", 
+  "linkUrl": "/starlink/reading/book_html/240622.html"  },
+  { "bookTitle": "五只小猪", "bookAuthor": "[英]阿加莎·克里斯蒂", "code": "240603-LFM.A-DN", 
+  "searchUrl": "/starlink/reading/book_img/bc240603.jpg", "imgUrl": "/starlink/reading/book_img/bc240603h.png", 
+  "linkUrl": "/starlink/reading/book_html/240603.html"  },
+  { "bookTitle": "罗生门", "bookAuthor": "[日]芥川龙之介", "code": "240601-CSF.L-HN", 
+  "searchUrl": "/starlink/reading/book_img/bc240601.jpg", "imgUrl": "/starlink/reading/book_img/bc240601h.png", 
+  "linkUrl": "/starlink/reading/book_html/240601.html"  }
 ]  
