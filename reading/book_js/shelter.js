@@ -170,9 +170,7 @@ function updateBgSubText() {
   const totalCount = linkData.length;
   bgSubText.textContent = `Numbers ${totalCount}`;
 }
-window.addEventListener('DOMContentLoaded', () => {
-  updateBgSubText();
-});
+updateBgSubText();
 const pageSize = 12;
 let currentPage = 1;
 const totalLinks = linkData.length;
@@ -366,6 +364,7 @@ window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
 }
+
 
 
 
