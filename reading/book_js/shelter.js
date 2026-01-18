@@ -42,9 +42,6 @@ fetch("/starlink/reading/library.json")
   .then(res => res.json())
   .then(data => {
     linkData = data;
-    }
-  .then(linkData => {
-    BookListShow(linkData);
   });
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -359,6 +356,7 @@ function debounceCalcMaxCount() {
 window.onload = calcMaxCount;
 window.addEventListener("resize", calcMaxCount);
 }
+
 
 
 
