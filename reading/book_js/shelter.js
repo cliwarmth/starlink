@@ -37,21 +37,12 @@ goup.addEventListener('click', function() {
     }, interval);
   });
  
-const linkData = [
-  { bookTitle: "一本书读懂财报", bookAuthor: "肖星", searchUrl: "./book_img/bc251023.jpg", linkUrl: "#", code: "251023-RB-FIN", imgUrl: "./book_img/bc251023h.png"},
-  { bookTitle: "Node.js 后端接口搭建", bookAuthor: "李四", searchUrl: "./book_img/bc2510231.jpg", linkUrl: "#", code: "251123-fd-FIN", imgUrl: "./book_img/bc2510231h.jpg" },
-  { bookTitle: "前端搜索功能优化", bookAuthor: "张三", searchUrl: "./book_img/bc2510232.jpg", linkUrl: "#", code: "250423-RBghIN", imgUrl: "./book_img/bc2510232h.jpg" },
-  { bookTitle: "JavaScript 基础入门", bookAuthor: "王五", searchUrl: "./book_img/bc2510233.jpg", linkUrl: "#", code: "240621-AM-FIN", imgUrl: "./book_img/bc2510233h.png" },
-  { bookTitle: "CSS 弹性布局实战2", bookAuthor: "张三", searchUrl: "./book_img/bc251023.jpg", linkUrl: "#", code: "231024-RB-FIN", imgUrl: "./book_img/bc251023h.jpg" },
-  { bookTitle: "66节法商保险课", bookAuthor: "李四", searchUrl: "./book_img/bc2510231.jpg", linkUrl: "#", code: "261013-RB-FIN", imgUrl: "./book_img/bc251023h.jpg" },
-  { bookTitle: "前端搜索功能优化2", bookAuthor: "张三", searchUrl: "./book_img/bc2510232.jpg", linkUrl: "#", code: "240323-RB-FIN", imgUrl: "./book_img/bc251023h.jpg" },
-  { bookTitle: "我的心中每天开出一朵花", bookAuthor: "王五", searchUrl: "./book_img/bc2510233.jpg", linkUrl: "#", code: "241109-Rg-FIN", imgUrl: "./book_img/bc251023h.jpg" },
-  { bookTitle: "CSS 弹性布局实战3", bookAuthor: "张三", searchUrl: "./book_img/bc251023.jpg", linkUrl: "#", code: "251014-RB-FIN", imgUrl: "./book_img/bc251023h.jpg" },
-  { bookTitle: "Node.js 后端接口搭建3", bookAuthor: "李四", searchUrl: "./book_img/bc2510231.jpg", linkUrl: "#", code: "260101-RB-FIN", imgUrl: "./book_img/bc251023h.jpg" },
-  { bookTitle: "前端搜索功能优化3", bookAuthor: "张三", searchUrl: "./book_img/bc2510232.jpg", linkUrl: "#", code: "250528-RB-FIN", imgUrl: "./book_img/bc251023h.jpg" },
-  { bookTitle: "JavaScript 基础入门3", bookAuthor: "王五", searchUrl: "./book_img/bc2510233.jpg", linkUrl: "#", code: "231003-RB-FIN", imgUrl: "./book_img/bc251023h.jpg"  },
-  { bookTitle: "JavaScript 基础入门3", bookAuthor: "王五", searchUrl: "./book_img/bc2510233.jpg", linkUrl: "#", code: "231003-RB-FIN", imgUrl: "./book_img/bc251023h.jpg"  }
-];
+let linkData = null;
+fetch("/starlink/reading/library.json")
+  .then(res => res.json())
+  .then(data => {
+    linkData = data;
+  });
 
 document.addEventListener('DOMContentLoaded', function() {
   const input = document.getElementById('search-input');
@@ -373,3 +364,4 @@ function debounceCalcMaxCount() {
 window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
+
