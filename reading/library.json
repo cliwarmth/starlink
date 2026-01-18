@@ -44,5 +44,17 @@
   "linkUrl": "/starlink/reading/book_html/240603.html"  },
   { "bookTitle": "罗生门", "bookAuthor": "[日]芥川龙之介", "code": "240601-CSF.L-HN", 
   "searchUrl": "/starlink/reading/book_img/bc240601.jpg", "imgUrl": "/starlink/reading/book_img/bc240601h.png", 
-  "linkUrl": "/starlink/reading/book_html/240601.html"  }
+  "linkUrl": "/starlink/reading/book_html/240601.html"  },
+  { "bookTitle": "受戒", "bookAuthor": "汪曾祺", "code": "240527-CSF.L-RC", 
+  "searchUrl": "/starlink/reading/book_img/bc240527.jpg", "imgUrl": "/starlink/reading/book_img/bc240527h.png", 
+  "linkUrl": "/starlink/reading/book_html/240527.html"  },
+  { "bookTitle": "零时", "bookAuthor": "[英]阿加莎·克里斯蒂", "code": "240515-LFM.A-DN", 
+  "searchUrl": "/starlink/reading/book_img/bc240515.jpg", "imgUrl": "/starlink/reading/book_img/bc240515h.png", 
+  "linkUrl": "/starlink/reading/book_html/240515.html"  },
+  { "bookTitle": "围城", "bookAuthor": "钱锺书", "code": "240217-LFM.L-LP", 
+  "searchUrl": "/starlink/reading/book_img/bc240217.jpg", "imgUrl": "/starlink/reading/book_img/bc240217h.png", 
+  "linkUrl": "/starlink/reading/book_html/240217.html"  },
+  { "bookTitle": "宿命", "bookAuthor": "[日]东野圭吾", "code": "240126-LFM.A-DN", 
+  "searchUrl": "/starlink/reading/book_img/bc240126.jpg", "imgUrl": "/starlink/reading/book_img/bc240126h.png", 
+  "linkUrl": "/starlink/reading/book_html/240126.html"  }
 ]  
