@@ -1,6 +1,6 @@
 
 [
-  { "bookTitle": "一本书读懂财报", "bookAuthor": "肖星", "code": "251023-RB-FIN", 
+  { "bookTitle": "一本书读懂财报", "bookAuthor": "肖星", "code": "251023-RB.P-FIN", 
   "searchUrl": "/starlink/reading/book_img/bc251023.jpg", "imgUrl": "/starlink/reading/book_img/bc251023h.png", 
   "linkUrl": "/starlink/reading/book_html/251023.html"  },
   { "bookTitle": "窄门", "bookAuthor": "[法]安德烈·纪德", "code": "251009-LFM.L-LUV", 
@@ -9,7 +9,7 @@
   { "bookTitle": "架空犯", "bookAuthor": "[日]东野圭吾", "code": "251007-LFM.A-DN", 
   "searchUrl": "/starlink/reading/book_img/bc251007.jpg", "imgUrl": "/starlink/reading/book_img/bc251007h.png", 
   "linkUrl": "/starlink/reading/book_html/251007.html"  },
-  { "bookTitle": "66节保险法商课", "bookAuthor": "沃晟学院", "code": "251001-RB-FIN", 
+  { "bookTitle": "66节保险法商课", "bookAuthor": "沃晟学院", "code": "251001-RB.P-FIN", 
   "searchUrl": "/starlink/reading/book_img/bc251001.jpg", "imgUrl": "/starlink/reading/book_img/bc251001h.png", 
   "linkUrl": "/starlink/reading/book_html/251001.html"  },
   { "bookTitle": "草木春秋", "bookAuthor": "汪曾祺", "code": "250908-CSF.L-EB", 
