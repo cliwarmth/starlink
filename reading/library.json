@@ -1,4 +1,7 @@
 [
+  { "bookTitle": "一九八四", "bookAuthor": "[英]乔治·奥威尔", "code": "260226-LT-LFM", 
+  "searchUrl": "/starlink/reading/book_img/bc260226.jpg", "imgUrl": "/starlink/reading/book_img/bc260226h.png", 
+  "linkUrl": "/starlink/reading/book_html/260226.html"  },
   { "bookTitle": "傲慢与偏见", "bookAuthor": "[英]简·奥斯丁", "code": "260211-LT-LFM", 
   "searchUrl": "/starlink/reading/book_img/bc260211.jpg", "imgUrl": "/starlink/reading/book_img/bc260211h.png", 
   "linkUrl": "/starlink/reading/book_html/260211.html"  },
