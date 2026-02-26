@@ -229,6 +229,7 @@ body {
   text-align: center;
   display: block;
   line-height: 2;
+  margin-bottom: 0;
 }
 #book_review {
   text-indent: 2em;
@@ -258,6 +259,7 @@ body {
 .finish_date_c {
   text-align: center;
   display: block;
+  line-height: 2;
 }
 #go_up {
   position: fixed;
