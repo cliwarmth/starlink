@@ -1,4 +1,10 @@
 [
+  { "bookTitle": "老人与海", "bookAuthor": "[美]欧内斯特·海明威", "code": "260430-LT-SFM", 
+  "searchUrl": "/starlink/reading/book_img/bc260430.jpg", "imgUrl": "/starlink/reading/book_img/bc260430h.png", 
+  "linkUrl": "/starlink/reading/book_html/260430.html"  },
+  { "bookTitle": "没有人给他写信的上校", "bookAuthor": "[哥伦比亚]马尔克斯(缩)", "code": "260428-LT-SFM", 
+  "searchUrl": "/starlink/reading/book_img/bc260428.jpg", "imgUrl": "/starlink/reading/book_img/bc260428h.png", 
+  "linkUrl": "/starlink/reading/book_html/260428.html"  },
   { "bookTitle": "瓦尔登湖", "bookAuthor": "[美]亨利·戴维·梭罗", "code": "260413-TH-SLF", 
   "searchUrl": "/starlink/reading/book_img/bc260413.jpg", "imgUrl": "/starlink/reading/book_img/bc260413h.png", 
   "linkUrl": "/starlink/reading/book_html/260413.html"  },
