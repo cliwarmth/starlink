@@ -1,3 +1,7 @@
+// 通过导航类型判断是否为刷新重新加载，用于后续强制回顶
+const isPageRefresh = (window.performance.navigation.type === 1) ||
+                        (window.performance.getEntriesByType('navigation')[0]?.type === 'reload');
+
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', function() {
   if (window.scrollY > 50) {
