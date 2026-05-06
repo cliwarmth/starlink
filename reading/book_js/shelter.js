@@ -1,6 +1,14 @@
-// 通过导航类型判断是否为刷新重新加载，用于后续强制回顶
+// 禁用浏览器自动滚动恢复，改用手动控制
+history.scrollRestoration = 'manual';
+
+// 检测是否为刷新加载
 const isPageRefresh = (window.performance.navigation.type === 1) ||
                         (window.performance.getEntriesByType('navigation')[0]?.type === 'reload');
+
+// 在页面即将离开时保存当前滚动位置，供刷新后恢复使用
+window.addEventListener('beforeunload', function() {
+  sessionStorage.setItem('scrollPos', window.scrollY.toString());
+});
 
 const nav = document.getElementById('nav');
 window.addEventListener('scroll', function() {
@@ -369,22 +377,22 @@ window.onload = calcMaxCount;
 window.addEventListener("resize", calcMaxCount);
 
 
-// 如果是刷新加载，在所有渲染完成后强制回到页面顶部
+// 如果是刷新，在所有渲染完成后恢复之前保存的滚动位置
 if (isPageRefresh) {
-  requestAnimationFrame(() => {
-    window.scrollTo(0, 0);
-  });
-}
-}
-
-// pageshow 中也尝试回顶，以防数据加载极快时 booklistShow 尚未执行
-window.addEventListener('pageshow', function(event) {
-  if (isPageRefresh) {
+  const savedScrollPos = sessionStorage.getItem('scrollPos');
+  if (savedScrollPos !== null) {
+    const targetY = parseInt(savedScrollPos, 10);
+    // 等布局计算完成后再滚动，确保内容高度足以支撑目标位置
     requestAnimationFrame(() => {
-      window.scrollTo(0, 0);
+      requestAnimationFrame(() => {
+        window.scrollTo(0, targetY);
+        // 恢复后清除存储，避免影响下次非刷新导航
+        sessionStorage.removeItem('scrollPos');
+      });
     });
   }
-});
+}
+}
 
 
 
