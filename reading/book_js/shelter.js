@@ -367,9 +367,24 @@ function debounceCalcMaxCount() {
 window.onload = calcMaxCount;
 
 window.addEventListener("resize", calcMaxCount);
+
+
+// 如果是刷新加载，在所有渲染完成后强制回到页面顶部
+if (isPageRefresh) {
+  requestAnimationFrame(() => {
+    window.scrollTo(0, 0);
+  });
+}
 }
 
-
+// pageshow 中也尝试回顶，以防数据加载极快时 booklistShow 尚未执行
+window.addEventListener('pageshow', function(event) {
+  if (isPageRefresh) {
+    requestAnimationFrame(() => {
+      window.scrollTo(0, 0);
+    });
+  }
+});
 
 
 
