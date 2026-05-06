@@ -1,13 +1,17 @@
-// 禁用浏览器自动滚动恢复，改用手动控制
+// 禁用浏览器自动滚动恢复
 history.scrollRestoration = 'manual';
 
 // 检测是否为刷新加载
 const isPageRefresh = (window.performance.navigation.type === 1) ||
                         (window.performance.getEntriesByType('navigation')[0]?.type === 'reload');
 
-// 在页面即将离开时保存当前滚动位置，供刷新后恢复使用
+// 页面离开前保存当前滚动位置和当前页码
 window.addEventListener('beforeunload', function() {
   sessionStorage.setItem('scrollPos', window.scrollY.toString());
+  // 从页码按钮的 active 状态读取当前页码，若不存在则默认为1
+  const activePageBtn = document.querySelector('.page-number.active');
+  const currentPage = activePageBtn ? activePageBtn.textContent : '1';
+  sessionStorage.setItem('currentPage', currentPage);
 });
 
 const nav = document.getElementById('nav');
@@ -184,7 +188,14 @@ function updateBgSubText() {
 }
 updateBgSubText();
 const pageSize = 12;
+// 如果是刷新，则从 sessionStorage 恢复上次的页码
 let currentPage = 1;
+if (isPageRefresh) {
+  const savedPage = sessionStorage.getItem('currentPage');
+  if (savedPage) {
+    currentPage = parseInt(savedPage, 10);
+  }
+}
 const totalLinks = linkData.length;
 const totalPages = Math.ceil(totalLinks / pageSize);
 function renderPageNumbers() {
@@ -335,7 +346,8 @@ document.getElementById('prevPage').addEventListener('click', () => {
 if (totalPages > 1) {
   document.getElementById('pagination').style.display = 'block';
 }
-renderPage(1);
+// 修改位置（原行：renderPage(1)）：根据可能恢复的 currentPage 渲染
+renderPage(currentPage);
 const BOOK_LINK_WIDTH = 200;
 const GAP_MIN = 10;
 const GAP_MAX = 60;
@@ -388,6 +400,7 @@ if (isPageRefresh) {
         window.scrollTo(0, targetY);
         // 恢复后清除存储，避免影响下次非刷新导航
         sessionStorage.removeItem('scrollPos');
+        sessionStorage.removeItem('currentPage');
       });
     });
   }
