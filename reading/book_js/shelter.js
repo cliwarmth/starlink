@@ -275,6 +275,7 @@ function adjustTextSizeOnWrap() {
   textWraps.forEach(wrap => {
     const textElements = wrap.querySelectorAll('p');
     textElements.forEach(el => {
+      el.style.fontSize = '';   // 回退到 CSS 默认值
       const fontSize = parseFloat(getComputedStyle(el).fontSize);
       const lineHeight = parseFloat(getComputedStyle(el).lineHeight) || fontSize * 1.2;
       const singleLineHeight = lineHeight;
@@ -323,10 +324,39 @@ function renderPage(pageNum) {
   document.getElementById('prevPage').disabled = (pageNum === 1);
   document.getElementById('nextPage').disabled = (pageNum === totalPages);
   renderPageNumbers();
+  // 使用双重 rAF 并等待图片加载完成，确保布局稳定后再调整字号
   requestAnimationFrame(() => {
-    calcMaxCount(); 
+    calcMaxCount();
     linkList.style.visibility = 'visible';
-    adjustTextSizeOnWrap();
+    requestAnimationFrame(() => {
+      const images = linkList.querySelectorAll('img');
+      let loadedCount = 0;
+      const totalImages = images.length;
+      function tryAdjust() {
+        if (loadedCount >= totalImages) {
+          adjustTextSizeOnWrap();
+        }
+      }
+      if (totalImages === 0) {
+        adjustTextSizeOnWrap();
+      } else {
+        images.forEach(img => {
+          if (img.complete) {
+            loadedCount++;
+            tryAdjust();
+          } else {
+            img.addEventListener('load', () => {
+              loadedCount++;
+              tryAdjust();
+            });
+            img.addEventListener('error', () => {
+              loadedCount++;
+              tryAdjust();
+            });
+          }
+        });
+      }
+    });
   });
 }
 document.getElementById('nextPage').addEventListener('click', () => {
@@ -384,7 +414,11 @@ function debounceCalcMaxCount() {
   clearTimeout(resizeDebounceTimer);
   resizeDebounceTimer = setTimeout(calcMaxCount, DEBOUNCE_DELAY);
 }
-window.onload = calcMaxCount;
+// 全页加载完成后再次修正字号，防止初始误判
+window.onload = function() {
+  calcMaxCount();
+  adjustTextSizeOnWrap();
+};
 
 window.addEventListener("resize", calcMaxCount);
 
