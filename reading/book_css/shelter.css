@@ -326,16 +326,23 @@ body {
     left: calc(50% + 500px + 20px) !important;
   }
 }
+/* 🔧 修改位置：.bg-text-container 重构居中方式，由绝对定位改为flex布局占满视口高度，
+   动画改为纯 translateY，并添加 animation-fill-mode: both，彻底解决内容动态变化导致的瞬移 */
 .bg-text-container {
   position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  text-align: center;
+  top: 0;
+  left: 0;
   width: 100%;
+  height: 100vh; /* 与 header 高度一致，占满首屏 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   padding: 0 20px;
   box-sizing: border-box;
+  z-index: 2;
+  animation: header-effect-sp1 1s both;
 }
 .bg-main-text {
   font-size: 60px;
@@ -356,19 +363,16 @@ body {
 .nav-bg {
   animation: header-effect 1s;
 }
+/* 🔧 修改位置：header-effect-sp1 关键帧改为简单的 translateY，配合新的 flex 居中 */
 @keyframes header-effect-sp1 {
   0% {
-    transform: translate(-50%, calc(-50% - 20px));
     opacity: 0;
+    transform: translateY(-20px);
   }
   100% {
-    transform: translate(-50%, -50%);
     opacity: 1;
+    transform: translateY(0);
   }
-}
-/* .bg-text-container 动画添加 animation-fill-mode: both 解决文字初次加载时闪现/瞬移问题 */
-.bg-text-container {
-  animation: header-effect-sp1 1s both;
 }
  @keyframes article-effect {
   0% {
