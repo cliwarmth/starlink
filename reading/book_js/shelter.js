@@ -188,9 +188,10 @@ function updateBgSubText() {
 }
 updateBgSubText();
 const pageSize = 12;
-// 如果是刷新，则从 sessionStorage 恢复上次的页码
+// 增加对 returnFromBook 标记的检测，以支持从book页返回时恢复页码
 let currentPage = 1;
-if (isPageRefresh) {
+const returnFromBook = sessionStorage.getItem('returnFromBook'); // 检查是否从book页返回
+if (isPageRefresh || returnFromBook === 'true') {
   const savedPage = sessionStorage.getItem('currentPage');
   if (savedPage) {
     currentPage = parseInt(savedPage, 10);
@@ -423,18 +424,21 @@ window.onload = function() {
 window.addEventListener("resize", calcMaxCount);
 
 
-// 如果是刷新，在所有渲染完成后恢复之前保存的滚动位置
-if (isPageRefresh) {
+// 扩展恢复触发条件，支持从book页返回，并清除 returnFromBook 标记
+if (isPageRefresh || returnFromBook === 'true') {
   const savedScrollPos = sessionStorage.getItem('scrollPos');
   if (savedScrollPos !== null) {
     const targetY = parseInt(savedScrollPos, 10);
-    // 等布局计算完成后再滚动，确保内容高度足以支撑目标位置
+    // 等待布局计算完成（双重 rAF）
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         window.scrollTo(0, targetY);
-        // 恢复后清除存储，避免影响下次非刷新导航
+        // 清理所有临时存储，避免下次非预期恢复
         sessionStorage.removeItem('scrollPos');
         sessionStorage.removeItem('currentPage');
+        if (returnFromBook === 'true') {
+          sessionStorage.removeItem('returnFromBook');
+        }
       });
     });
   }
