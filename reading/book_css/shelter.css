@@ -366,8 +366,9 @@ body {
     opacity: 1;
   }
 }
+/* .bg-text-container 动画添加 animation-fill-mode: both 解决文字初次加载时闪现/瞬移问题 */
 .bg-text-container {
-  animation: header-effect-sp1 1s;
+  animation: header-effect-sp1 1s both;
 }
  @keyframes article-effect {
   0% {
