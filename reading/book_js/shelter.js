@@ -5,6 +5,10 @@ history.scrollRestoration = 'manual';
 const isPageRefresh = (window.performance.navigation.type === 1) ||
                         (window.performance.getEntriesByType('navigation')[0]?.type === 'reload');
 
+// 检测 URL 参数 from=book，用于判断是否从书籍详情页返回
+const urlParams = new URLSearchParams(window.location.search);
+const isFromBook = urlParams.get('from') === 'book';
+
 // 页面离开前保存当前滚动位置和当前页码
 window.addEventListener('beforeunload', function() {
   sessionStorage.setItem('scrollPos', window.scrollY.toString());
@@ -188,10 +192,9 @@ function updateBgSubText() {
 }
 updateBgSubText();
 const pageSize = 12;
-// 增加对 returnFromBook 标记的检测，以支持从book页返回时恢复页码
+// 页码恢复条件扩展，包含从 book 返回的情况
 let currentPage = 1;
-const returnFromBook = sessionStorage.getItem('returnFromBook'); // 检查是否从book页返回
-if (isPageRefresh || returnFromBook === 'true') {
+if (isPageRefresh || isFromBook) {
   const savedPage = sessionStorage.getItem('currentPage');
   if (savedPage) {
     currentPage = parseInt(savedPage, 10);
@@ -424,21 +427,18 @@ window.onload = function() {
 window.addEventListener("resize", calcMaxCount);
 
 
-// 扩展恢复触发条件，支持从book页返回，并清除 returnFromBook 标记
-if (isPageRefresh || returnFromBook === 'true') {
+// 滚动位置恢复条件扩展，支持从 book 页返回
+if (isPageRefresh || isFromBook) {
   const savedScrollPos = sessionStorage.getItem('scrollPos');
   if (savedScrollPos !== null) {
     const targetY = parseInt(savedScrollPos, 10);
-    // 等待布局计算完成（双重 rAF）
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         window.scrollTo(0, targetY);
-        // 清理所有临时存储，避免下次非预期恢复
+        // 恢复后清除临时数据，避免影响后续正常浏览
         sessionStorage.removeItem('scrollPos');
         sessionStorage.removeItem('currentPage');
-        if (returnFromBook === 'true') {
-          sessionStorage.removeItem('returnFromBook');
-        }
+        // 如果是从 book 返回，清除 URL 参数？无需，但可保留，不影响功能
       });
     });
   }

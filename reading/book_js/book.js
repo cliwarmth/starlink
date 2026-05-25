@@ -171,13 +171,4 @@ document.addEventListener('DOMContentLoaded', function() {
       handleManualSearch();
     }
   };
-  // 为“回到书架”链接绑定点击事件，设置localStorage标记
-  const backLink = document.getElementById('back-to-shelf');
-  if (backLink) {
-    backLink.addEventListener('click', function(e) {
-      // 在离开当前页面前，设置标记，通知书架页需要恢复滚动位置
-      localStorage.setItem('returnFromBook', 'true');
-      // 允许默认链接跳转行为
-    });
-  }
 });
