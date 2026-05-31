@@ -285,8 +285,8 @@ function adjustTextSizeOnWrap() {
       const singleLineHeight = lineHeight;
       const actualHeight = el.offsetHeight;
       if (actualHeight > singleLineHeight + 2) {
-        el.style.fontSize = `${fontSize - 1.8}px`;
-        el.style.paddingTop = '2px';    // 上方留白，可改为 1px、3px 等
+        el.style.fontSize = `${fontSize - 2}px`; // 2px
+        el.style.paddingTop = '2px';    // 上方留白
         el.style.paddingBottom = '0.2px'; // 下方留白
         el.style.lineHeight = '1';      // 将行高设为 1 倍字体大小，避免额外空白干扰 padding 效果
       } else {
