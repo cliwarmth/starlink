@@ -108,7 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
           title: book.bookTitle,
           author: book.bookAuthor,
           searchUrl: book.searchUrl,
-          code: book.code
+          code: book.code,
+          linkUrl: book.linkUrl
         });
     }});
 
