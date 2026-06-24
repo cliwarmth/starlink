@@ -1,4 +1,7 @@
 [
+  { "bookTitle": "动物农场", "bookAuthor": "[英]乔治·奥威尔", "code": "260623-LT-MLF", 
+  "searchUrl": "/starlink/reading/book_img/bc260623.jpg", "imgUrl": "/starlink/reading/book_img/bc260623h.png", 
+  "linkUrl": "/starlink/reading/book_html/260623.html"  },
   { "bookTitle": "上下五千年", "bookAuthor": "林汉达/曹余章", "code": "260617-HT-CIV", 
   "searchUrl": "/starlink/reading/book_img/bc260617.jpg", "imgUrl": "/starlink/reading/book_img/bc260617h.png", 
   "linkUrl": "/starlink/reading/book_html/260617.html"  },
