@@ -1,5 +1,13 @@
+let gameData = null;
+fetch("/starlink/gaming/atlas.json")
+  .then(res => res.json())
+  .then(data => {
+    gameData = data;
+    gamelistShow();
+  });
+
 function gamelistShow() {
-  // 计数：直接设置，不要再包 DOMContentLoaded
+  // 计数：直接设置，不再包 DOMContentLoaded
   document.getElementById('totalnum').textContent = `Numbers ${gameData.length}`;
 
   const pageSize = 16;
@@ -143,43 +151,11 @@ function gamelistShow() {
   if (totalPages > 1) document.getElementById('pagination').style.display = 'flex';
   renderPage(1);
 
-  // ========== 搜索相关代码：全部移入 gamelistShow ==========
+  // ========== 搜索相关代码（原样移入，字段名未改） ==========
   const searchBtn = document.getElementById('searchBtn');
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
   const searchWrapper = document.querySelector('.search-wrapper');
-
-  function handleSearchInput() {
-    const keyword = searchInput.value.trim().toLowerCase();
-    if (!keyword) {
-      searchResults.classList.remove('active');
-      searchResults.innerHTML = '';
-      return;
-    }
-
-    // 修正字段：优先使用与渲染一致的 gameTitle / gameYear，developer 做安全访问
-    const matches = gameData.filter(game =>
-      (game.gameTitle || '').toLowerCase().includes(keyword) ||
-      (game.gameYear || '').toString().includes(keyword) ||
-      (game.developer || '').toLowerCase().includes(keyword)
-    );
-
-    if (matches.length > 0) {
-      searchResults.innerHTML = matches.map(game => `
-        <div class="search-result-item" data-url="${game.linkUrl}">
-          <img class="search-result-img" src="${game.imgUrl}" alt="${game.gameTitle}">
-          <div class="search-result-text">
-            <strong>${game.gameTitle}</strong>
-            <span class="search-result-year">(${game.gameYear})</span>
-          </div>
-        </div>
-      `).join('');
-      searchResults.classList.add('active');
-    } else {
-      searchResults.innerHTML = '<div class="search-result-item" style="cursor:default; opacity:0.6;">未找到匹配游戏</div>';
-      searchResults.classList.add('active');
-    }
-  }
 
   searchBtn.addEventListener('click', () => {
     searchInput.classList.toggle('active');
@@ -204,6 +180,34 @@ function gamelistShow() {
     }
   });
 
+  function handleSearchInput() {
+    const keyword = searchInput.value.trim().toLowerCase();
+    if (!keyword) {
+      searchResults.classList.remove('active');
+      searchResults.innerHTML = '';
+      return;
+    }
+    const matches = gameData.filter(game =>
+      game.title.toLowerCase().includes(keyword) ||
+      game.developer.toLowerCase().includes(keyword)
+    );
+    if (matches.length > 0) {
+      searchResults.innerHTML = matches.map(game => `
+        <div class="search-result-item" data-url="${game.linkUrl}">
+          <img class="search-result-img" src="${game.imgUrl}" alt="${game.gameTitle}">
+          <div class="search-result-text">
+            <strong>${game.gameTitle}</strong>
+            <span class="search-result-year">(${game.gameYear})</span>
+          </div>
+        </div>
+      `).join('');
+      searchResults.classList.add('active');
+    } else {
+      searchResults.innerHTML = '<div class="search-result-item" style="cursor:default; opacity:0.6;">未找到匹配游戏</div>';
+      searchResults.classList.add('active');
+    }
+  }
+
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.search-wrapper')) {
       searchResults.classList.remove('active');
@@ -211,3 +215,55 @@ function gamelistShow() {
     }
   });
 }
+
+// ========== 以下代码与 gameData 无关，保持原样 ==========
+
+const navbar = document.querySelector('.navbar');
+const goup = document.getElementById('go_up');
+const scrollThreshold = 300;
+
+window.addEventListener('scroll', function () {
+  const scrollTop = window.scrollY || document.documentElement.scrollTop;
+  if (scrollTop > 30) navbar.classList.add('nav-scrolled');
+  else navbar.classList.remove('nav-scrolled');
+  if (scrollTop >= scrollThreshold) goup.classList.add('show');
+  else goup.classList.remove('show');
+});
+
+goup.addEventListener('click', function () {
+  const step = 50, interval = 6;
+  let currentScrollTop = window.scrollY || document.documentElement.scrollTop;
+  const scrollTimer = setInterval(function () {
+    currentScrollTop -= step;
+    if (currentScrollTop <= 0) {
+      currentScrollTop = 0;
+      clearInterval(scrollTimer);
+    }
+    window.scrollTo(0, currentScrollTop);
+  }, interval);
+});
+
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = themeToggle.querySelector('i');
+const body = document.body;
+
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme === 'light') {
+  body.classList.add('light-mode');
+  themeIcon.className = 'fas fa-toggle-off fa-fw';
+} else {
+  body.classList.remove('light-mode');
+  themeIcon.className = 'fas fa-toggle-on fa-fw';
+}
+
+themeToggle.addEventListener('click', () => {
+  if (body.classList.contains('light-mode')) {
+    body.classList.remove('light-mode');
+    themeIcon.className = 'fas fa-toggle-on fa-fw';
+    localStorage.setItem('theme', 'dark');
+  } else {
+    body.classList.add('light-mode');
+    themeIcon.className = 'fas fa-toggle-off fa-fw';
+    localStorage.setItem('theme', 'light');
+  }
+});
