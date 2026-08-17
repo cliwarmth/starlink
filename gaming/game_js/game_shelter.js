@@ -3,8 +3,10 @@ fetch("/starlink/gaming/atlas.json")
   .then(res => res.json())
   .then(data => {
     gameData = data;
+    gamelistShow();
   });
 
+function gamelistShow(){
 document.addEventListener('DOMContentLoaded', function () {
   document.getElementById('totalnum').textContent = `Numbers ${gameData.length}`;
 });
@@ -149,6 +151,7 @@ document.getElementById('prevPage').addEventListener('click', () => {
 
 if (totalPages > 1) document.getElementById('pagination').style.display = 'flex';
 renderPage(1);
+}
 
 const navbar = document.querySelector('.navbar');
 const goup = document.getElementById('go_up');
