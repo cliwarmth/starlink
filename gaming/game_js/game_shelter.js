@@ -7,9 +7,10 @@ fetch("/starlink/gaming/atlas.json")
   });
 
 function gamelistShow() {
-  // 计数：直接设置，不再包 DOMContentLoaded
+  // ========== 计数更新（直接执行） ==========
   document.getElementById('totalnum').textContent = `Numbers ${gameData.length}`;
 
+  // ========== 分页与渲染 ==========
   const pageSize = 16;
   let currentPage = 1;
   const totalLinks = gameData.length;
@@ -151,34 +152,11 @@ function gamelistShow() {
   if (totalPages > 1) document.getElementById('pagination').style.display = 'flex';
   renderPage(1);
 
-  // ========== 搜索相关代码（原样移入，字段名未改） ==========
+  // ========== 搜索相关代码（全部移入，字段名保持原样） ==========
   const searchBtn = document.getElementById('searchBtn');
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
   const searchWrapper = document.querySelector('.search-wrapper');
-
-  searchBtn.addEventListener('click', () => {
-    searchInput.classList.toggle('active');
-    if (searchInput.classList.contains('active')) {
-      searchInput.focus();
-      handleSearchInput();
-    } else {
-      searchResults.classList.remove('active');
-    }
-  });
-
-  searchInput.addEventListener('input', handleSearchInput);
-
-  searchResults.addEventListener('click', (e) => {
-    const item = e.target.closest('.search-result-item');
-    if (item) {
-      const url = item.dataset.url;
-      alert(`跳转到：${url}`);
-      searchInput.value = item.querySelector('.search-result-text strong').textContent;
-      searchResults.classList.remove('active');
-      searchInput.classList.remove('active');
-    }
-  });
 
   function handleSearchInput() {
     const keyword = searchInput.value.trim().toLowerCase();
@@ -208,6 +186,29 @@ function gamelistShow() {
     }
   }
 
+  searchBtn.addEventListener('click', () => {
+    searchInput.classList.toggle('active');
+    if (searchInput.classList.contains('active')) {
+      searchInput.focus();
+      handleSearchInput();
+    } else {
+      searchResults.classList.remove('active');
+    }
+  });
+
+  searchInput.addEventListener('input', handleSearchInput);
+
+  searchResults.addEventListener('click', (e) => {
+    const item = e.target.closest('.search-result-item');
+    if (item) {
+      const url = item.dataset.url;
+      alert(`跳转到：${url}`);
+      searchInput.value = item.querySelector('.search-result-text strong').textContent;
+      searchResults.classList.remove('active');
+      searchInput.classList.remove('active');
+    }
+  });
+
   document.addEventListener('click', (e) => {
     if (!e.target.closest('.search-wrapper')) {
       searchResults.classList.remove('active');
@@ -216,8 +217,7 @@ function gamelistShow() {
   });
 }
 
-// ========== 以下代码与 gameData 无关，保持原样 ==========
-
+// ========== 以下与 gameData 无关，保持原样 ==========
 const navbar = document.querySelector('.navbar');
 const goup = document.getElementById('go_up');
 const scrollThreshold = 300;
