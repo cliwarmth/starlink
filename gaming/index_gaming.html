@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- ========== 首帧主题初始化：必须在所有资源加载前执行，防止闪烁 ========== -->
+  <script>
+    (function() {
+      try {
+        var saved = localStorage.getItem('theme');
+        var isLight = saved === 'light';
+        var root = document.documentElement;
+        // 提前给 html 设置类与背景色
+        root.classList.toggle('light-mode', isLight);
+        root.style.backgroundColor = isLight ? '#F0E6D6' : '#0f0f14';
+      } catch(e) {
+        document.documentElement.style.backgroundColor = '#0f0f14';
+      }
+    })();
+  </script>
+
+  <meta charset="UTF-8">
+  <title>Game Atlas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="游戏纪行">
+  <meta name="author" content="cliwarmth">
+  <meta name="copyright" content="cliwarmth">
+  <meta name="format-detection" content="telephone=no, email=no">
+  <meta name="theme-color" content="#ffffff">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Game Atlas">
+  <meta property="og:url" content="https://cliwarmth.github.io/starlink/gaming/index_gaming.html">
+  <meta property="og:site_name" content="Project Starlink">
+  <meta property="og:description" content="星星连成线，那是我的过往">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:image" content="/starlink/gaming/game_img/bglightindex.jpg"> <!-- 填写：海报的位置 -->
+  <meta property="article:author" content="cliwarmth">
+  <link rel="shortcut icon" href="/starlink/reading/game_img/game_icon.png">
+  <link rel="canonical" href="https://cliwarmth.github.io/starlink/gaming/index_gaming.html">
+  <link rel="preconnect" href="//cdn.jsdelivr.net"/> <!-- 提前和 jsDelivr 的服务器建立网络连接，加速链接，test阶段先不用 -->
+  <!-- <link rel="preconnect" href="//busuanzi.sukap.cn"/> --> <!-- 提前和 不蒜子 的服务器建立网络连接，提供统计，test阶段先不用 -->
+  <link rel="stylesheet" href="/starlink/reading/game_css/game_shelter.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'">
+</head>
+
+<body>
+  <!-- ========== 导航栏 ========== -->
+  <nav class="navbar">
+    <a href="/starlink/index.html" title="Game Atlas" class="back-btn">
+      Game Atlas
+    </a>
+    <div class="search-wrapper">
+      <div class="search-area">
+        <input type="text" class="search-input" id="searchInput" placeholder="搜索游戏...">
+        <button class="nav-icon" id="searchBtn" title="搜索">
+          <i class="fas fa-search fa-fw"></i>
+        </button>
+        <button class="nav-icon" title="首页">
+          <a href="/starlink/index.html" class="nav-link-inner">
+            <i class="fas fa-home fa-fw"></i>
+          </a>
+        </button>
+        <button class="nav-icon" title="关于">
+          <a href="/starlink/about.html" class="nav-link-inner">
+            <i class="fas fa-user fa-fw"></i>
+          </a>
+        </button>
+        <button class="nav-icon theme-toggle" id="themeToggle" title="切换浅色/深色模式">
+          <i class="fas fa-toggle-on fa-fw"></i>
+        </button>
+      </div>
+      <div id="searchResults" class="search-results"></div>
+    </div>
+  </nav>
+
+  <!-- ========== Hero 顶图区域 ========== -->
+  <div class="nav-bg">
+    <div class="bg-text-container">
+      <h1 class="bg-main-text">Game Atlas</h1>
+      <div class="bg-sub-text">Worlds conquered</div>
+      <div class="bg-sub-text" id="totalnum">Numbers 0</div>
+    </div>
+  </div>
+
+  <!-- ========== 主内容区域 ========== -->
+  <div id="main_content">
+    <div class="link-list" id="game-list"></div>
+
+    <div id="pagination">
+      <button id="prevPage"><i class="fa fa-angle-left fa-fw"></i></button>
+      <div id="pageNumbers"></div>
+      <button id="nextPage"><i class="fa fa-angle-right fa-fw"></i></button>
+    </div>
+  </div>
+
+  <!-- ========== 底部 ========== -->
+  <footer id="footer">
+    <div>©2026 by cliwarmth</div>
+    <div>版权声明: 转载请联系作者并注明来源 <a href="https://cliwarmth.github.io/starlink/" target="_blank" class="foothylink">https://cliwarmth.github.io/starlink/</a></div>
+  </footer>
+
+  <!-- ========== 回到顶部按钮 ========== -->
+  <button id="go_up"><i class="fas fa-angle-up fa-2x"></i></button>
+
+  <script src="/starlink/reading/game_js/game_shelter.js"></script>
+
+</body>
+
+</html>
