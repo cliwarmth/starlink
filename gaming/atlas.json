@@ -1,0 +1,8 @@
+[
+  { "gameTitle": "中国式家长", "gameYear": "2018", "addedAT": "AT003", "developer": "墨鱼玩游戏",
+  "imgUrl": "/starlink/gaming/game_poster/AT003.jpg", "linkUrl": "/starlink/gaming/game_html/AT003_CP.html" },
+  { "gameTitle": "怪怪水族馆", "gameYear": "2005", "addedAT": "AT002", "developer": "宝开游戏公司",
+  "imgUrl": "/starlink/gaming/game_poster/AT002.jpg", "linkUrl": "/starlink/gaming/game_html/AT002_I.html" },
+  { "gameTitle": "植物大战僵尸", "gameYear": "2009", "addedAT": "AT001", "developer": "宝开游戏公司",
+  "imgUrl": "/starlink/gaming/game_poster/AT001.png", "linkUrl": "/starlink/gaming/game_html/AT001_PVZ.html" }
+]
