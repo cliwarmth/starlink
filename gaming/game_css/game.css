@@ -258,7 +258,7 @@ body:not(.light-mode) .navbar.nav-scrolled {
 
 .search-result-img {
   width: 36px;
-  height: 36px;
+  height: 54px;
   object-fit: cover;
   border-radius: 4px;
   flex-shrink: 0;
@@ -676,6 +676,9 @@ body.light-mode .nav-link:hover { color: #000; }
 
 /* ========== 防止滚动条引起的布局偏移 ========== */
 html { scrollbar-gutter: stable; }
+html::-webkit-scrollbar-track {
+  background: transparent;  /* 已设置，但可进一步确保 */
+}
 
 /* ========== 响应式设计（手机适配） ========== */
 @media (max-width: 900px) {
