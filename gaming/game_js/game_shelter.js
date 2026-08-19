@@ -4,6 +4,8 @@ fetch("/starlink/gaming/atlas.json")
   .then(data => {
     gameData = data;
     gamelistShow();
+    // 数据渲染完成后，尝试恢复滚动位置（如果 URL 中有 scrollY 参数）
+    restoreScrollPosition();
   });
 
 function gamelistShow() {
@@ -214,6 +216,38 @@ function gamelistShow() {
       searchResults.classList.remove('active');
       searchInput.classList.remove('active');
     }
+  });
+
+  // ========== 新增：点击游戏卡片时携带滚动位置 ==========
+  document.addEventListener('click', function (e) {
+    const link = e.target.closest('.game-home-link');
+    if (!link) return;
+
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const originalHref = link.getAttribute('href');
+    if (!originalHref || originalHref === '#') return;
+
+    const separator = originalHref.includes('?') ? '&' : '?';
+    const newHref = `${originalHref}${separator}from=game&scrollY=${scrollY}`;
+    link.setAttribute('href', newHref);
+  });
+}
+
+// ========== 恢复滚动位置（新增） ==========
+function restoreScrollPosition() {
+  const params = new URLSearchParams(window.location.search);
+  const scrollY = params.get('scrollY');
+  if (!scrollY) return;
+
+  // 等待下一帧，确保游戏列表已经渲染完成
+  requestAnimationFrame(() => {
+    window.scrollTo(0, parseInt(scrollY, 10));
+
+    // 可选：清除 URL 中的 scrollY 参数，避免刷新时再次滚动
+    const url = new URL(window.location);
+    url.searchParams.delete('scrollY');
+    url.searchParams.delete('from');
+    history.replaceState({}, '', url);
   });
 }
 
