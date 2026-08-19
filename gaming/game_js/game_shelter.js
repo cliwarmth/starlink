@@ -196,7 +196,7 @@ function gamelistShow() {
       return;
     }
     const matches = gameData.filter(game =>
-      game.title.toLowerCase().includes(keyword) ||
+      game.gameTitle.toLowerCase().includes(keyword) ||
       game.developer.toLowerCase().includes(keyword)
     );
     if (matches.length > 0) {
@@ -205,6 +205,7 @@ function gamelistShow() {
           <img class="search-result-img" src="${game.imgUrl}" alt="${game.gameTitle}">
           <div class="search-result-text">
             <strong>${game.gameTitle}</strong>
+            ${game.gameTitleEn ? `<span style="font-size: 0.9em;"> ${game.gameTitleEn}</span>` : ''}
             <span class="search-result-year">(${game.gameYear})</span>
           </div>
         </div>
