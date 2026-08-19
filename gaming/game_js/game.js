@@ -1,12 +1,10 @@
 // ---------- 测试数据库 ----------
-const gameDatabase = [
-  { title: "空洞骑士",gameTitleEn:"ori", year: 2017, url: "#", image: "https://picsum.photos/seed/hk/48/48" },
-  { title: "丝之歌",gameTitleEn:"ori", year: 2024, url: "#", image: "https://picsum.photos/seed/silk/48/48" },
-  { title: "奥日与黑暗森林",gameTitleEn:"ori", year: 2015, url: "#", image: "https://picsum.photos/seed/ori/48/48" },
-  { title: "茶杯头",gameTitleEn:"cuphead", year: 2017, url: "#", image: "https://picsum.photos/seed/cup/48/48" },
-  { title: "只狼",gameTitleEn:"wolf", year: 2019, url: "#", image: "https://picsum.photos/seed/sekiro/48/48" },
-  { title: "黑暗之魂",gameTitleEn:"ori", year: 2011, url: "#", image: "https://picsum.photos/seed/darksouls/48/48" }
-];
+let gameData = null;
+fetch("/starlink/gaming/atlas.json")
+  .then(res => res.json())
+  .then(data => {
+    gameData = data;
+  });
 
 // ---------- 搜索功能 ----------
 const searchBtn = document.getElementById('searchBtn');
@@ -45,18 +43,20 @@ function handleSearchInput() {
     return;
   }
   const matches = gameData.filter(game => {
-  const titleMatch = game.gameTitle.toLowerCase().includes(keyword);
-  const enMatch = game.gameTitleEn && game.gameTitleEn.toLowerCase().includes(keyword);
-  return titleMatch || enMatch;
+      const titleMatch = game.gameTitle.toLowerCase().includes(keyword);
+      const enMatch = game.gameTitleEn && game.gameTitleEn.toLowerCase().includes(keyword);
+      const enAbMatch = game.gameTitleEnAB && game.gameTitleEnAB.toLowerCase().includes(keyword);
+      const devMatch = game.developer && game.developer.toLowerCase().includes(keyword);
+      return titleMatch || enMatch || enAbMatch || devMatch;
   });
   if (matches.length > 0) {
     searchResults.innerHTML = matches.map(game => `
-      <div class="search-result-item" data-url="${game.url}">
-        <img class="search-result-img" src="${game.image}" alt="${game.title}">
+      <div class="search-result-item" data-url="${game.linkUrl}">
+        <img class="search-result-img" src="${game.imgUrl}" alt="${game.gameTitle}">
         <div class="search-result-text">
-          <strong>${game.title}</strong>
-          ${game.gameTitleEn ? `<span style="font-size: 0.9em;"> ${game.gameTitleEn}</span>` : ''}
-          <span class="search-result-year">(${game.year})</span>
+          <strong>${game.gameTitle}</strong>
+          ${game.gameTitleEnAB ? `<span style="font-size: 0.9em;"> ${game.gameTitleEnAB}</span>` : ''}
+          <span class="search-result-year">(${game.gameYear})</span>
         </div>
       </div>
     `).join('');
