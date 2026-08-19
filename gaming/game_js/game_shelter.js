@@ -1,11 +1,29 @@
+// ========== 禁用浏览器自动滚动恢复 ==========
+history.scrollRestoration = 'manual';
+
+// ========== 检测是否为刷新加载 ==========
+const isPageRefresh = (window.performance.navigation.type === 1) ||
+                      (window.performance.getEntriesByType('navigation')[0]?.type === 'reload');
+
+// ========== 检测 URL 参数 from=game，用于判断是否从游戏详情页返回 ==========
+const urlParams = new URLSearchParams(window.location.search);
+const isFromGame = urlParams.get('from') === 'game';
+
+// ========== 页面离开前保存当前滚动位置和当前页码 ==========
+window.addEventListener('beforeunload', function() {
+  sessionStorage.setItem('scrollPos', window.scrollY.toString());
+  // 从页码按钮的 active 状态读取当前页码，若不存在则默认为1
+  const activePageBtn = document.querySelector('.page-number.active');
+  const currentPage = activePageBtn ? activePageBtn.textContent : '1';
+  sessionStorage.setItem('currentPage', currentPage);
+});
+
 let gameData = null;
 fetch("/starlink/gaming/atlas.json")
   .then(res => res.json())
   .then(data => {
     gameData = data;
     gamelistShow();
-    // 数据渲染完成后，尝试恢复滚动位置（如果 URL 中有 scrollY 参数）
-    restoreScrollPosition();
   });
 
 function gamelistShow() {
@@ -14,7 +32,15 @@ function gamelistShow() {
 
   // ========== 分页与渲染 ==========
   const pageSize = 16;
+  // 页码恢复条件：刷新时或从游戏详情页返回时
   let currentPage = 1;
+  if (isPageRefresh || isFromGame) {
+    const savedPage = sessionStorage.getItem('currentPage');
+    if (savedPage) {
+      currentPage = parseInt(savedPage, 10);
+    }
+  }
+
   const totalLinks = gameData.length;
   const totalPages = Math.ceil(totalLinks / pageSize);
 
@@ -152,9 +178,11 @@ function gamelistShow() {
   });
 
   if (totalPages > 1) document.getElementById('pagination').style.display = 'flex';
-  renderPage(1);
 
-  // ========== 搜索相关代码（全部移入，字段名保持原样） ==========
+  // 使用恢复的 currentPage 进行渲染，而不是固定为 1
+  renderPage(currentPage);
+
+  // ========== 搜索相关代码 ==========
   const searchBtn = document.getElementById('searchBtn');
   const searchInput = document.getElementById('searchInput');
   const searchResults = document.getElementById('searchResults');
@@ -218,37 +246,21 @@ function gamelistShow() {
     }
   });
 
-  // ========== 新增：点击游戏卡片时携带滚动位置 ==========
-  document.addEventListener('click', function (e) {
-    const link = e.target.closest('.game-home-link');
-    if (!link) return;
-
-    const scrollY = window.scrollY || document.documentElement.scrollTop;
-    const originalHref = link.getAttribute('href');
-    if (!originalHref || originalHref === '#') return;
-
-    const separator = originalHref.includes('?') ? '&' : '?';
-    const newHref = `${originalHref}${separator}from=game&scrollY=${scrollY}`;
-    link.setAttribute('href', newHref);
-  });
-}
-
-// ========== 恢复滚动位置（新增） ==========
-function restoreScrollPosition() {
-  const params = new URLSearchParams(window.location.search);
-  const scrollY = params.get('scrollY');
-  if (!scrollY) return;
-
-  // 等待下一帧，确保游戏列表已经渲染完成
-  requestAnimationFrame(() => {
-    window.scrollTo(0, parseInt(scrollY, 10));
-
-    // 可选：清除 URL 中的 scrollY 参数，避免刷新时再次滚动
-    const url = new URL(window.location);
-    url.searchParams.delete('scrollY');
-    url.searchParams.delete('from');
-    history.replaceState({}, '', url);
-  });
+  // ========== 滚动位置恢复（从游戏详情页返回时） ==========
+  if (isPageRefresh || isFromGame) {
+    const savedScrollPos = sessionStorage.getItem('scrollPos');
+    if (savedScrollPos !== null) {
+      const targetY = parseInt(savedScrollPos, 10);
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          window.scrollTo(0, targetY);
+          // 恢复后清除临时数据，避免影响后续正常浏览
+          sessionStorage.removeItem('scrollPos');
+          sessionStorage.removeItem('currentPage');
+        });
+      });
+    }
+  }
 }
 
 // ========== 以下与 gameData 无关，保持原样 ==========

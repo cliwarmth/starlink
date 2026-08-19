@@ -6,24 +6,6 @@ fetch("/starlink/gaming/atlas.json")
     gameData = data;
   });
 
-// ========== 新增：设置返回按钮，携带滚动位置参数 ==========
-document.addEventListener('DOMContentLoaded', function () {
-  const params = new URLSearchParams(window.location.search);
-  const scrollY = params.get('scrollY');
-  const from = params.get('from');
-
-  const backBtn = document.querySelector('.back-btn');
-  if (!backBtn) return;
-
-  if (scrollY) {
-    // 如果 URL 中有 scrollY，则返回 index 页并带上该参数
-    backBtn.href = `/starlink/index_gaming.html?from=game&scrollY=${scrollY}`;
-  } else if (from === 'game') {
-    // 即使没有 scrollY，也确保返回 index 页（可选）
-    backBtn.href = `/starlink/index_gaming.html?from=game`;
-  }
-});
-
 // ---------- 搜索功能 ----------
 const searchBtn = document.getElementById('searchBtn');
 const searchInput = document.getElementById('searchInput');
