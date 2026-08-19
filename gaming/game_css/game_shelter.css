@@ -250,7 +250,7 @@ body:not(.light-mode) .navbar.nav-scrolled {
 
 .search-result-img {
   width: 36px;
-  height: 36px;
+  height: 54px;
   object-fit: cover;
   border-radius: 4px;
   flex-shrink: 0;
