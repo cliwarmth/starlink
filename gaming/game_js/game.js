@@ -17,10 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   if (scrollY) {
     // 如果 URL 中有 scrollY，则返回 index 页并带上该参数
-    backBtn.href = `/starlink/index.html?from=game&scrollY=${scrollY}`;
+    backBtn.href = `/starlink/index_gaming.html?from=game&scrollY=${scrollY}`;
   } else if (from === 'game') {
     // 即使没有 scrollY，也确保返回 index 页（可选）
-    backBtn.href = `/starlink/index.html?from=game`;
+    backBtn.href = `/starlink/index_gaming.html?from=game`;
   }
 });
 
