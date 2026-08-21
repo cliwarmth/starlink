@@ -1,11 +1,11 @@
 [
-  { "gameTitle": "The Room", "gameTitleEn": "The Room",
+  { "gameTitle": "The Room", "gameTitleEn": "The Room","gameTitleEnAB": "",
   "addedAT": "AT006", "gameYear": "2012", "developer": "FireProof Games",
   "imgUrl": "/starlink/gaming/game_poster/AT006.jpg", "linkUrl": "/starlink/gaming/game_html/AT006_Room.html" },
   { "gameTitle": "疑案追声", "gameTitleEn": "Unheard","gameTitleEnAB": "Unheard",
   "addedAT": "AT005", "gameYear": "2019", "developer": "NExT Studios",
   "imgUrl": "/starlink/gaming/game_poster/AT005.jpg", "linkUrl": "/starlink/gaming/game_html/AT005_Unheard.html" },
-  { "gameTitle": "中国式家长", "gameTitleEn": "Chinese Parents",
+  { "gameTitle": "中国式家长", "gameTitleEn": "Chinese Parents","gameTitleEnAB": "",
   "addedAT": "AT004", "gameYear": "2018", "developer": "墨鱼玩游戏",
   "imgUrl": "/starlink/gaming/game_poster/AT004.jpg", "linkUrl": "/starlink/gaming/game_html/AT004_CP.html" },
   { "gameTitle": "奥日与黑暗森林", "gameTitleEn": "Ori and the Blind Forest","gameTitleEnAB": "Ori",
