@@ -46,8 +46,7 @@ function handleSearchInput() {
       const titleMatch = game.gameTitle.toLowerCase().includes(keyword);
       const enMatch = game.gameTitleEn && game.gameTitleEn.toLowerCase().includes(keyword);
       const enAbMatch = game.gameTitleEnAB && game.gameTitleEnAB.toLowerCase().includes(keyword);
-      const devMatch = game.developer && game.developer.toLowerCase().includes(keyword);
-      return titleMatch || enMatch || enAbMatch || devMatch;
+      return titleMatch || enMatch || enAbMatch;
   });
   if (matches.length > 0) {
     searchResults.innerHTML = matches.map(game => `
