@@ -560,7 +560,7 @@ body.light-mode .search-result-item:hover { background: rgba(0, 0, 0, 0.06); }
 /* 无截图纪念 */
 .no-screenshots-memorial {
   display: none;
-  padding: 10px 0;
+  padding: 2.2px 0;
 }
 
 .page-no-screenshots .no-screenshots-memorial { display: block; }
