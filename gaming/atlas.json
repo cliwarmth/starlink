@@ -1,4 +1,16 @@
 [
+  { "gameTitle": "世界拉力锦标赛7", "gameTitleEn": "WRC 7","gameTitleEnAB": "WRC 7",
+  "addedAT": "AT015", "gameYear": "2017", "developer": "KT Racing",
+  "imgUrl": "/starlink/gaming/game_poster/AT015.jpg", "linkUrl": "/starlink/gaming/game_html/AT015_WRC7.html" },
+  { "gameTitle": "怪物猎人：世界", "gameTitleEn": "Monster Hunter: World","gameTitleEnAB": "MH: World",
+  "addedAT": "AT014", "gameYear": "2018", "developer": "CAPCOM",
+  "imgUrl": "/starlink/gaming/game_poster/AT014.jpg", "linkUrl": "/starlink/gaming/game_html/AT014_MHW.html" },
+  { "gameTitle": "雀魂麻将", "gameTitleEn": "MahjongSoul","gameTitleEnAB": "MahjongSoul",
+  "addedAT": "AT013", "gameYear": "2018", "developer": "Catfood Studio",
+  "imgUrl": "/starlink/gaming/game_poster/AT013.jpg", "linkUrl": "/starlink/gaming/game_html/AT013_MahjongSoul.html" },
+  { "gameTitle": "王者荣耀", "gameTitleEn": "Honor of Kings","gameTitleEnAB": "Honor of Kings",
+  "addedAT": "AT012", "gameYear": "2015", "developer": "天美Timi",
+  "imgUrl": "/starlink/gaming/game_poster/AT012.jpg", "linkUrl": "/starlink/gaming/game_html/AT012_HOK.html" },
   { "gameTitle": "史莱姆牧场", "gameTitleEn": "Slime Rancher","gameTitleEnAB": "Slime Rancher",
   "addedAT": "AT011", "gameYear": "2017", "developer": "Monomi Park",
   "imgUrl": "/starlink/gaming/game_poster/AT011.jpg", "linkUrl": "/starlink/gaming/game_html/AT011_SlimeRancher.html" },
@@ -27,9 +39,9 @@
   "addedAT": "AT003", "gameYear": "2015", "developer": "Moon Studios GmbH",
   "imgUrl": "/starlink/gaming/game_poster/AT003.jpg", "linkUrl": "/starlink/gaming/game_html/AT003_Ori.html" },
   { "gameTitle": "怪怪水族馆", "gameTitleEn": "Insaniquarium","gameTitleEnAB": "Insaniquarium",
-  "addedAT": "AT002", "gameYear": "2005", "developer": "宝开游戏公司",
+  "addedAT": "AT002", "gameYear": "2005", "developer": "PopCap Games",
   "imgUrl": "/starlink/gaming/game_poster/AT002.jpg", "linkUrl": "/starlink/gaming/game_html/AT002_Insaniquarium.html" },
   { "gameTitle": "植物大战僵尸", "gameTitleEn": "Plants vs. Zombies","gameTitleEnAB": "PVZ",
-  "addedAT": "AT001", "gameYear": "2009", "developer": "宝开游戏公司",
+  "addedAT": "AT001", "gameYear": "2009", "developer": "PopCap Games",
   "imgUrl": "/starlink/gaming/game_poster/AT001.png", "linkUrl": "/starlink/gaming/game_html/AT001_PVZ.html" }
 ]
