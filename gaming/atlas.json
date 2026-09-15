@@ -1,4 +1,13 @@
 [
+  { "gameTitle": "Helltaker", "gameTitleEn": "Helltaker","gameTitleEnAB": "",
+  "addedAT": "AT018", "gameYear": "2020", "developer": "vanripper",
+  "imgUrl": "/starlink/gaming/game_poster/AT018.jpg", "linkUrl": "/starlink/gaming/game_html/AT018_Helltaker.html" },
+  { "gameTitle": "黑森町奇谭", "gameTitleEn": "Tales of the Black Forest","gameTitleEnAB": "",
+  "addedAT": "AT017", "gameYear": "2019", "developer": "拾英工作室",
+  "imgUrl": "/starlink/gaming/game_poster/AT017.jpg", "linkUrl": "/starlink/gaming/game_html/AT017_TBF.html" },
+  { "gameTitle": "吞食鱼2", "gameTitleEn": "Feeding Frenzy 2","gameTitleEnAB": "",
+  "addedAT": "AT016", "gameYear": "2006", "developer": "PopCap Games",
+  "imgUrl": "/starlink/gaming/game_poster/AT016.jpg", "linkUrl": "/starlink/gaming/game_html/AT016_FeedingFrenzy2.html" },
   { "gameTitle": "世界拉力锦标赛7", "gameTitleEn": "WRC 7","gameTitleEnAB": "WRC 7",
   "addedAT": "AT015", "gameYear": "2017", "developer": "KT Racing",
   "imgUrl": "/starlink/gaming/game_poster/AT015.jpg", "linkUrl": "/starlink/gaming/game_html/AT015_WRC7.html" },
