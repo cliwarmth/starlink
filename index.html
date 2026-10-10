@@ -1,15 +1,1164 @@
 <!DOCTYPE html>
-<html lang="zh-CN"> <!-- 声明页面的主要语言类型为中文 -->
+<html lang="zh-CN">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>PROJECT STARLINK</title>
+    <link rel="preload" href="index_setup/AidianSignatureTi-Latin.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="index_setup/DingLieXiDa-Subset.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="index_setup/Capricornus.png" as="image">
+    <link rel="preload" href="index_setup/Sagittarius.png" as="image">
+    <link rel="preload" href="index_setup/Cancer.png" as="image">
+    <link rel="preload" href="index_setup/bgindex.png" as="image">
+    <style>
+        /* ===== 自定义字体：丁列夕大体（中文展示字体） =====
+           原始 TTF 4.58MB，已按页面实际用字子集化为 woff2（约 15KB）
+           仅覆盖中文字符区间，英文交由热点签名体（unicode-range 自动分流） */
+        @font-face {
+            font-family: 'DingLieXiDa';
+            src: url('index_setup/DingLieXiDa-Subset.woff2') format('woff2'),
+                 url('index_setup/dingliexidafont-20250329V2)-2.ttf') format('truetype');
+            font-weight: 400 700;
+            font-style: normal;
+            font-display: swap;
+            unicode-range: U+4E00-9FFF, U+3000-303F, U+FF00-FFEF, U+00B7, U+2014, U+2026;
+        }
+
+        /* ===== 自定义字体：热点签名体（AidianSignatureTi） =====
+           woff2 子集优先，ttf 兜底；unicode-range 与子集范围一致 */
+        @font-face {
+            font-family: 'AidianSignatureTi';
+            src: url('index_setup/AidianSignatureTi-Latin.woff2') format('woff2'),
+                 url('index_setup/AidianSignatureTi-Regular-2.ttf') format('truetype');
+            font-weight: 400 700;
+            font-style: normal;
+            font-display: swap;
+            unicode-range: U+0020-007E;
+        }
+
+        /* 字体未就绪前先隐藏签名与 ABC 主体，ready 后同时淡入，避免可见的字体切换 */
+        .fade-in-on-ready {
+            opacity: 0;
+            animation: revealFallback 0s linear 1.5s forwards;
+        }
+        .fade-in-on-ready.font-ready {
+            opacity: 1;
+            animation: none;
+            transition: opacity 0.5s ease;
+        }
+        @keyframes revealFallback {
+            to { opacity: 1; }
+        }
+    </style>
+    <noscript>
+        <style>
+            .fade-in-on-ready { opacity: 1; }
+        </style>
+    </noscript>
+    <style>
+        :root {
+            /* ===== 色卡（由深到浅） ===== */
+            --c-deep: #0E0F1D;      /* 最深：主深色背景 */
+            --c-mid-deep: #47406C;  /* 次深：背景渐变 / 底衬 */
+            --c-surface: #5B5184;   /* 中深：次要背景、卡片、边框 */
+            --c-accent: #937497;    /* 中浅：强调元素、中等层次 */
+            --c-light: #CFB8D8;     /* 最浅：高亮、文字、点缀 */
+
+            --bg-deep: var(--c-deep);
+            --bg-mid: var(--c-mid-deep);
+            --surface: var(--c-surface);
+            --accent: var(--c-accent);
+            --accent-bright: var(--c-light);
+            --text-light: var(--c-light);
+            --main-icon-size: 150px;
+            --side-icon-size: 52px;
+            --arrow-size: calc(var(--main-icon-size) * 0.667); /* 约为主体星域的 2/3 */
+            --gap-main: 36px;
+            --gap-arrow-side: 10px;
+            --switch-duration: 1.2s;
+            --pulse-speed: 2.4s;
+            /* 水平轨道参数 */
+            --ellipse-a: 195px;
+            /* 水平半径 */
+            --ellipse-b: 0px;
+            /* 箭头内收量：把两侧箭头向内容区拉近（舞台盒在边缘有留白） */
+            --arrow-inset: 30px;
+            /* 星座图相对字母图标的放大系数（仅作用于带图片的 A/B） */
+            --image-icon-scale: 1.45;
+            /* 整体节点放大系数：统一作用于 A/B/C，不影响箭头/轨道/文字 */
+            --icon-scale: 1.12;
+            /* 垂直半径设为0 = 纯水平线 */
+            --main-icon-size-mobile: 85px;
+            --side-icon-size-mobile: 32px;
+            --gap-main-mobile: 12px;
+            --ellipse-a-mobile: 98px;
+            --ellipse-b-mobile: 0px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            background: var(--bg-deep);
+            color: var(--text-light);
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: none;
+        }
+
+        .starlink-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background:
+                /* 中心轻微压暗，保留文字可读性 */
+                radial-gradient(ellipse at center 30%, rgba(11, 13, 42, 0.55) 0%, transparent 65%),
+                /* 主背景：银河系图片 */
+                url('index_setup/bgindex.png') center / cover no-repeat,
+                var(--bg-deep);
+        }
+
+        .bg-gradient-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background: none;   /* 由 bgindex.png 提供主背景，此层不再绘制 */
+            pointer-events: none;
+        }
+        #stars-canvas {
+            position: absolute;
+            inset: 0;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .nebula-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 3;
+            pointer-events: none;
+            background: none;   /* 由 bgindex.png 提供星云氛围，此层不再绘制 */
+            animation: nebulaDrift 18s ease-in-out infinite alternate;
+        }
+        @keyframes nebulaDrift {
+            0% {
+                opacity: 0.75;
+                transform: translateY(0);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(-10px);
+            }
+        }
+
+        /* ===== 顶部签名：单词宽间距 + 星光氛围 ===== */
+        .signature-layer {
+            position: absolute;
+            z-index: 6;
+            pointer-events: none;
+            top: 6%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1.9em;                  /* 两单词之间的宽间距（约两个字符宽） */
+            font-size: clamp(1.6rem, 4vw, 3.8rem);
+            color: rgba(207, 184, 216, 0.62);
+            letter-spacing: 0.22em;
+            font-weight: 700;
+            text-shadow:
+                0 0 16px rgba(207, 184, 216, 0.32),
+                0 0 38px rgba(147, 116, 151, 0.45),
+                0 0 68px rgba(91, 81, 132, 0.32);
+            white-space: nowrap;
+            font-family: 'AidianSignatureTi', 'Georgia', serif;
+            text-transform: uppercase;
+        }
+
+        /* 抵消末字符后多出的字距，保持整体视觉居中 */
+        .signature-layer .sig-word:last-child {
+            margin-right: -0.22em;
+        }
+
+        /* 柔和光晕：置于文字下层，不影响可读性 */
+        .signature-layer::before {
+            content: '';
+            position: absolute;
+            inset: -70% -14%;
+            z-index: -1;
+            pointer-events: none;
+            background: radial-gradient(ellipse at 50% 50%,
+                    rgba(147, 116, 151, 0.22) 0%,
+                    rgba(91, 81, 132, 0.1) 45%,
+                    transparent 72%);
+            filter: blur(8px);
+            animation: sigHalo 7s ease-in-out infinite alternate;
+        }
+
+        /* 星尘层 A：细密小点 */
+        .signature-layer .sig-stars {
+            position: absolute;
+            inset: -90% -12%;
+            z-index: 1;
+            pointer-events: none;
+            background-repeat: no-repeat;
+            background-image:
+                radial-gradient(1.3px 1.3px at 8% 26%, rgba(255, 255, 255, 0.95), transparent 62%),
+                radial-gradient(1.1px 1.1px at 21% 78%, rgba(207, 184, 216, 0.9), transparent 62%),
+                radial-gradient(1.5px 1.5px at 34% 14%, rgba(255, 255, 255, 0.85), transparent 62%),
+                radial-gradient(1px 1px at 46% 84%, rgba(207, 184, 216, 0.8), transparent 62%),
+                radial-gradient(1.4px 1.4px at 58% 30%, rgba(255, 255, 255, 0.9), transparent 62%),
+                radial-gradient(1.1px 1.1px at 69% 72%, rgba(207, 184, 216, 0.85), transparent 62%),
+                radial-gradient(1.5px 1.5px at 82% 20%, rgba(255, 255, 255, 0.8), transparent 62%),
+                radial-gradient(1.2px 1.2px at 93% 66%, rgba(207, 184, 216, 0.9), transparent 62%),
+                radial-gradient(1px 1px at 15% 52%, rgba(147, 116, 151, 0.9), transparent 62%),
+                radial-gradient(1.2px 1.2px at 76% 48%, rgba(147, 116, 151, 0.85), transparent 62%);
+            animation: sigTwinkleA 4.2s ease-in-out infinite, sigDrift 14s ease-in-out infinite alternate;
+        }
+
+        /* 星尘层 B：更大更亮的光点，与 A 层错开闪烁节奏 */
+        .signature-layer::after {
+            content: '';
+            position: absolute;
+            inset: -90% -12%;
+            z-index: 1;
+            pointer-events: none;
+            background-repeat: no-repeat;
+            background-image:
+                radial-gradient(2.2px 2.2px at 13% 68%, rgba(207, 184, 216, 0.95), transparent 60%),
+                radial-gradient(2.6px 2.6px at 39% 88%, rgba(255, 255, 255, 0.9), transparent 60%),
+                radial-gradient(2.4px 2.4px at 62% 12%, rgba(207, 184, 216, 0.9), transparent 60%),
+                radial-gradient(2px 2px at 88% 40%, rgba(255, 255, 255, 0.85), transparent 60%);
+            filter: drop-shadow(0 0 4px rgba(207, 184, 216, 0.55));
+            animation: sigTwinkleB 3.1s ease-in-out infinite, sigDrift 11s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes sigHalo {
+            0% { opacity: 0.55; transform: scale(0.96); }
+            100% { opacity: 1; transform: scale(1.06); }
+        }
+        @keyframes sigTwinkleA {
+            0%, 100% { opacity: 0.32; }
+            50% { opacity: 0.9; }
+        }
+        @keyframes sigTwinkleB {
+            0%, 100% { opacity: 0.14; }
+            45% { opacity: 0.72; }
+            70% { opacity: 0.28; }
+        }
+        @keyframes sigDrift {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(0, -6px, 0); }
+        }
+
+        .zodiac-orbit-layer {
+            position: absolute;
+            inset: 0;
+            z-index: 4;
+            pointer-events: none;
+            display: none;
+        }
+
+        .main-interaction-area {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: auto;
+            user-select: none;
+        }
+
+        .arrow-btn {
+            width: var(--arrow-size);
+            height: var(--arrow-size);
+            border: none;
+            background: transparent;
+            color: var(--accent);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+            outline: none;
+            flex-shrink: 0;
+            position: relative;   /* 供悬浮气泡锚定 */
+            filter: drop-shadow(0 0 8px rgba(147, 116, 151, 0.45));
+            transition: color 0.25s, transform 0.2s, filter 0.25s;
+            z-index: 20;
+            pointer-events: auto;
+        }
+        .arrow-btn:hover {
+            color: var(--accent-bright);
+            filter: drop-shadow(0 0 16px rgba(207, 184, 216, 0.7));
+            transform: scale(1.1);
+        }
+        .arrow-btn:focus-visible {
+            color: var(--accent-bright);
+            outline: 1px dashed rgba(207, 184, 216, 0.6);
+            outline-offset: 4px;
+        }
+        .arrow-btn:active {
+            transform: scale(0.88);
+        }
+        .arrow-btn svg {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        /* 两侧箭头内收：左箭头向右靠、右箭头向左靠 */
+        #btnLeft {
+            margin-right: calc(var(--arrow-inset) * -1);
+        }
+        #btnRight {
+            margin-left: calc(var(--arrow-inset) * -1);
+        }
+
+        .carousel-stage {
+            position: relative;
+            width: calc(var(--main-icon-size) + 2 * var(--ellipse-a) + 2 * var(--side-icon-size));
+            height: calc(var(--main-icon-size) + 40px);
+            pointer-events: auto;
+            flex-shrink: 0;
+        }
+
+        .orbit-icon {
+            position: absolute;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background: transparent;
+            padding: 0;
+            outline: none;
+            cursor: pointer;
+            font-family: 'Georgia', serif;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            pointer-events: auto;
+            -webkit-tap-highlight-color: transparent;
+            transition: none;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        /* ===== 未解锁星域（C）灰态样式 ===== */
+        .orbit-icon.is-locked {
+            cursor: not-allowed;
+        }
+
+        .orbit-icon .lock-tooltip {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 10px);
+            transform: translate(-50%, 4px);
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: rgba(14, 15, 29, 0.94);
+            border: 1px solid rgba(147, 116, 151, 0.55);
+            color: var(--c-light);
+            font-family: 'DingLieXiDa', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            line-height: 1.4;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+
+        .orbit-icon.is-locked:hover .lock-tooltip,
+        .orbit-icon.is-locked:focus-visible .lock-tooltip,
+        .orbit-icon.is-locked.tip-show .lock-tooltip {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* ===== 通用悬浮气泡：星座 / 左右箭头（与「未解锁该星域」同款深色气泡） ===== */
+        .orbit-icon .hover-tip,
+        .arrow-btn .hover-tip {
+            position: absolute;
+            left: 50%;
+            bottom: calc(100% + 10px);
+            transform: translate(-50%, 4px);
+            padding: 7px 16px;
+            border-radius: 999px;
+            background: rgba(14, 15, 29, 0.94);
+            border: 1px solid rgba(147, 116, 151, 0.55);
+            color: var(--c-light);
+            font-family: 'AidianSignatureTi', 'DingLieXiDa', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            line-height: 1.4;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.5);
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+        .orbit-icon:hover .hover-tip,
+        .orbit-icon:focus-visible .hover-tip,
+        .arrow-btn:hover .hover-tip,
+        .arrow-btn:focus-visible .hover-tip {
+            opacity: 1;
+            transform: translate(-50%, 0);
+        }
+
+        /* ===== 图标下方文字：仅当图标处于正中位置时出现 =====
+           中文一行 + 英文一行，整体由 rotate-scale.js 每帧写入 transform，
+           故此处只对 opacity 做处理（逐帧驱动，不做 transition） */
+        .orbit-icon .icon-caption {
+            position: absolute;
+            top: calc(100% + 10px);
+            left: 50%;
+            transform: translate(-50%, 0);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+        }
+        .orbit-icon .icon-caption .cap-cn {
+            font-size: 26px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            line-height: 1.4;
+            font-family: 'DingLieXiDa', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            color: var(--c-light);
+            text-shadow: 0 0 14px rgba(147, 116, 151, 0.7), 0 0 30px rgba(91, 81, 132, 0.45);
+        }
+        .orbit-icon .icon-caption .cap-en {
+            font-size: 17px;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            line-height: 1.3;
+            font-family: 'AidianSignatureTi', 'Georgia', serif;
+            color: rgba(207, 184, 216, 0.88);
+            text-shadow: 0 0 12px rgba(147, 116, 151, 0.55);
+        }
+
+        /* 标题可拖拽旋转（3D 演示） */
+        .signature-layer .sig-word {
+            pointer-events: auto;
+            cursor: grab;
+        }
+        .signature-layer .sig-word:active {
+            cursor: grabbing;
+        }
+
+        /* 角度 / 缩放实时读数（当前隐藏，代码保留） */
+        .rs-hud {
+            display: none;
+            position: fixed;
+            left: 50%;
+            bottom: 26px;
+            transform: translateX(-50%) translateY(8px);
+            padding: 8px 18px;
+            border-radius: 999px;
+            background: rgba(14, 15, 29, 0.92);
+            border: 1px solid rgba(147, 116, 151, 0.5);
+            color: var(--c-light);
+            font-family: 'DingLieXiDa', 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            z-index: 50;
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+            transition: opacity 0.25s ease, transform 0.25s ease, border-color 0.25s ease;
+        }
+        .rs-hud.is-visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        .rs-hud.is-pinned {
+            border-color: rgba(207, 184, 216, 0.85);
+        }
+
+        @keyframes lockShake {
+            0%, 100% { transform: translate(-50%, -50%); }
+            25% { transform: translate(calc(-50% - 6px), -50%); }
+            75% { transform: translate(calc(-50% + 6px), -50%); }
+        }
+
+        .orbit-icon.is-locked.shake {
+            animation: lockShake 0.4s ease;
+        }
+
+        @media (max-width: 768px) {
+            :root {
+                --main-icon-size: var(--main-icon-size-mobile);
+                --side-icon-size: var(--side-icon-size-mobile);
+                --gap-main: var(--gap-main-mobile);
+                --ellipse-a: var(--ellipse-a-mobile);
+                --ellipse-b: var(--ellipse-b-mobile);
+                /* 小屏留白有限，放大幅度收敛，避免挤压两侧箭头 */
+                --image-icon-scale: 1.15;
+                --icon-scale: 1.06;
+                --arrow-inset: 8px;
+            }
+            .signature-layer {
+                font-size: 1.3rem;
+                top: 4%;
+            }
+            .orbit-icon .icon-caption {
+                top: calc(100% + 8px);
+            }
+            .orbit-icon .icon-caption .cap-cn {
+                font-size: 18px;
+                letter-spacing: 0.16em;
+            }
+            .orbit-icon .icon-caption .cap-en {
+                font-size: 13px;
+            }
+        }
+        @media (max-width: 420px) {
+            :root {
+                --gap-main: 6px;
+                --side-icon-size: 26px;
+                --ellipse-a: 65px;
+                --ellipse-b: 0px;
+                --main-icon-size: 68px;
+                --image-icon-scale: 1.08;
+            }
+        }
+
+        /* ===== 宽屏档一（≥1061px）：主体与缩略图放大，轨道同步拉宽 =====
+           main 150→190px，side 52→66px，ellipse-a 175→225px，星座图 ×1.55
+           图片实际尺寸：正中 295px / 两侧 102px，净间距 27px
+           舞台 772px + 两侧箭头 253px ≈ 1025px，1061px 起用余量充足 */
+        @media (min-width: 1061px) {
+            :root {
+                --main-icon-size: 190px;
+                --side-icon-size: 66px;
+                --ellipse-a: 265px;
+                --image-icon-scale: 1.55;
+                --arrow-inset: 68px;
+            }
+            .orbit-icon .icon-caption .cap-cn {
+                font-size: 28px;   /* 与放大后的主体保持比例 */
+            }
+            .orbit-icon .icon-caption .cap-en {
+                font-size: 19px;
+            }
+        }
+
+        /* ===== 宽屏档二（≥1440px）：进一步放大星座图 =====
+           ellipse-a 225→280px，星座图 ×1.85
+           图片实际尺寸：正中 352px / 两侧 122px，净间距 43px
+           舞台 882px + 两侧箭头 253px ≈ 1135px，1440px 起用余量充足 */
+        @media (min-width: 1440px) {
+            :root {
+                --ellipse-a: 315px;
+                --image-icon-scale: 1.85;
+                --arrow-inset: 68px;
+            }
+            .orbit-icon .icon-caption .cap-cn {
+                font-size: 32px;
+            }
+            .orbit-icon .icon-caption .cap-en {
+                font-size: 21px;
+            }
+        }
+    </style>
 </head>
 <body>
-<span>首页还没搞好</span>
-<a class="hylink" href="/starlink/reading/index_reading.html"> <!-- 可改链接 -->
-            <span> 先去图书馆</span>
-          </a>
-<a class="hylink" href="/starlink/gaming/index_gaming.html"> <!-- 可改链接 -->
-            <span> 先去游戏库</span>
-          </a>
-</body>
 
+    <div class="starlink-container" id="starlinkApp">
+        <div class="bg-gradient-layer"></div>
+        <div class="rs-hud" id="rsHud"></div>
+        <canvas id="stars-canvas"></canvas>
+        <div class="nebula-layer"></div>
+        <div class="zodiac-orbit-layer" id="orbitLayer"></div>
+        <div class="signature-layer fade-in-on-ready" id="signatureLayer">
+            <span class="sig-stars" aria-hidden="true"></span>
+            <span class="sig-word">PROJECT</span>
+            <span class="sig-word">STARLINK</span>
+        </div>
+
+        <div class="main-interaction-area fade-in-on-ready" id="interactionArea">
+            <button class="arrow-btn" id="btnLeft" aria-label="上一个星域">
+                <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                <span class="hover-tip">上一个星域</span>
+            </button>
+
+            <div class="carousel-stage" id="carouselStage">
+                <button class="orbit-icon" id="iconLeft" aria-label="上一个">C</button>
+                <button class="orbit-icon" id="iconCenter" aria-label="进入当前子页面">A</button>
+                <button class="orbit-icon" id="iconRight" aria-label="下一个">B</button>
+            </div>
+
+            <button class="arrow-btn" id="btnRight" aria-label="下一个星域">
+                <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <span class="hover-tip">下一个星域</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="/starlink/gaming/index_setup/rotate-scale.js"></script>
+    <script>
+        /* ================= 旋转联动缩放：文字配置 =================
+           1) __captionRotate：图标下方文字，跟随轮播角度（由 applyIconState 调用）
+           2) 标题：鼠标 / 触摸拖拽做 3D 旋转，读数实时显示在 #rsHud */
+        (function () {
+            if (!window.RotateScale) return;
+            var hud = document.getElementById('rsHud');
+
+            /* 下方文字：与图片同一条余弦曲线，中心最大、两侧最小 */
+            window.__captionRotate = {
+                mode: '3d',
+                drive: 'z',
+                perspective: 620,
+                intensity: 1,
+                minScale: 0.72,
+                maxScale: 1,        /* 正中时保持原始字号，离开中心才缩小 */
+                scaleCurve: 'cosine',
+                baseTransform: 'translate(-50%, 0)',
+                origin: '50% 50%',
+                hud: hud,
+                hudFormat: function (r) {
+                    return '文字旋转 ' + r.angle.toFixed(0) + '° · 缩放 ' + r.scale.toFixed(2) + '×';
+                }
+            };
+
+            /* 标题：拖拽 3D 旋转（另一套参数，演示多实例独立配置） */
+            var sig = document.getElementById('signatureLayer');
+            if (sig) {
+                window.__signatureRotate = window.RotateScale.create({
+                    targets: [{ el: sig, cfg: { baseTransform: 'translateX(-50%)' } }],
+                    mode: '3d',
+                    drive: 'magnitude',
+                    perspective: 900,
+                    intensity: 1.2,
+                    minScale: 0.8,
+                    maxScale: 1,
+                    scaleCurve: 'cosine',
+                    easing: window.RotateScale.EASINGS.smoothstep,
+                    drag: true,
+                    dragTarget: sig,
+                    dragAxis: 'xy',
+                    sensitivity: 0.35,
+                    friction: 0.9,
+                    snap: 15,
+                    hud: hud,
+                    hudFormat: function (r) {
+                        return 'X ' + r.angleX.toFixed(0) + '° / Y ' + r.angleY.toFixed(0) +
+                               '° · 缩放 ' + r.scale.toFixed(2) + '×';
+                    }
+                });
+            }
+
+            /* H 键固定 / 取消固定读数面板 */
+            document.addEventListener('keydown', function (e) {
+                if (!hud || (e.key !== 'h' && e.key !== 'H')) return;
+                hud.__rsPinned = !hud.__rsPinned;
+                hud.classList.toggle('is-pinned', !!hud.__rsPinned);
+                hud.classList.toggle('is-visible', !!hud.__rsPinned);
+            });
+        })();
+    </script>
+
+    <script>
+        (function() {
+            'use strict';
+
+            const options = [
+                { id: 'A', label: 'A', link: '/starlink/reading/index_reading.html', iconImage: 'index_setup/Capricornus.png', caption: '摩羯座·图书馆', hoverText: 'Capricornus-Surplus Library' },
+                { id: 'B', label: 'B', link: '/starlink/gaming/index_gaming.html', iconImage: 'index_setup/Sagittarius.png', caption: '射手座·游戏库', hoverText: 'Sagittarius-Game Atlas' },
+                { id: 'C', label: 'C', link: '#', iconImage: 'index_setup/Cancer.png', locked: true },
+            ];
+
+            const LOCK_TIP_TEXT = '未解锁该星域';
+
+            let currentIndex = 0;
+            let isAnimating = false;
+
+            const stage = document.getElementById('carouselStage');
+            const iconLeft = document.getElementById('iconLeft');
+            const iconCenter = document.getElementById('iconCenter');
+            const iconRight = document.getElementById('iconRight');
+            const btnLeft = document.getElementById('btnLeft');
+            const btnRight = document.getElementById('btnRight');
+            const starsCanvas = document.getElementById('stars-canvas');
+            const interactionArea = document.getElementById('interactionArea');
+
+            const iconElements = [iconLeft, iconCenter, iconRight];
+
+            /* ========== 星空粒子 ========== */
+            const starField = {
+                canvas: starsCanvas,
+                ctx: starsCanvas.getContext('2d'),
+                stars: [],
+                dpr: 1,
+                width: 0,
+                height: 0,
+                init() {
+                    this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+                    this.resize();
+                    this.generateStars(140);
+                    this.animate();
+                    window.addEventListener('resize', () => {
+                        this.resize();
+                        this.generateStars(140);
+                        if (!isAnimating) renderStatic();
+                    });
+                },
+                resize() {
+                    const rect = this.canvas.parentElement.getBoundingClientRect();
+                    this.canvas.width = rect.width * this.dpr;
+                    this.canvas.height = rect.height * this.dpr;
+                    this.canvas.style.width = rect.width + 'px';
+                    this.canvas.style.height = rect.height + 'px';
+                    this.ctx.setTransform(this.dpr, 0, 0, this.dpr, 0, 0);
+                    this.width = rect.width;
+                    this.height = rect.height;
+                },
+                generateStars(count) {
+                    this.stars = [];
+                    const colors = ['255,255,255', '207,184,216', '147,116,151', '232,219,241'];
+                    for (let i = 0; i < count; i++) {
+                        this.stars.push({
+                            x: Math.random() * this.width,
+                            y: Math.random() * this.height,
+                            r: Math.random() * 1.5 + 0.4,
+                            baseA: Math.random() * 0.7 + 0.3,
+                            a: 0,
+                            ts: Math.random() * 0.02 + 0.005,
+                            tp: Math.random() * Math.PI * 2,
+                            c: colors[Math.floor(Math.random() * 4)],
+                            dx: (Math.random() - 0.5) * 0.06,
+                            dy: (Math.random() - 0.5) * 0.05,
+                        });
+                    }
+                },
+                animate() {
+                    const ctx = this.ctx;
+                    const w = this.width;
+                    const h = this.height;
+                    ctx.clearRect(0, 0, w, h);
+                    const t = Date.now() * 0.001;
+                    for (const s of this.stars) {
+                        const tw = Math.sin(t * s.ts * 60 + s.tp) * 0.5 + 0.5;
+                        s.a = s.baseA * (0.4 + 0.6 * tw);
+                        s.x += s.dx;
+                        s.y += s.dy;
+                        if (s.x < -2) s.x = w + 2;
+                        if (s.x > w + 2) s.x = -2;
+                        if (s.y < -2) s.y = h + 2;
+                        if (s.y > h + 2) s.y = -2;
+                        ctx.beginPath();
+                        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                        ctx.fillStyle = `rgba(${s.c},${s.a.toFixed(3)})`;
+                        ctx.fill();
+                    }
+                    this.raf = requestAnimationFrame(() => this.animate());
+                },
+            };
+
+            /* ========== 轨道参数 ========== */
+            function getOrbitParams() {
+                const mainSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--main-icon-size')) || 150;
+                const sideSize = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--side-icon-size')) || 52;
+                const ellipseA = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ellipse-a')) || 130;
+                const ellipseB = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--ellipse-b')) || 0;
+                const imageScale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--image-icon-scale')) || 1;
+                const iconScale = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--icon-scale')) || 1;
+                return { mainSize, sideSize, ellipseA, ellipseB, imageScale, iconScale };
+            }
+
+            /* ========== 水平线位置计算（y恒为0） ========== */
+            function computePosition(angleRad, params) {
+                const cosA = Math.cos(angleRad);
+                const sinA = Math.sin(angleRad);
+                const x = params.ellipseA * sinA;
+                const y = 0;
+                /* 所有图标都在水平线上 */
+                const scaleFactor = (cosA + 1) / 2;
+                const size = params.sideSize + (params.mainSize - params.sideSize) * scaleFactor;
+                const opacity = 0.55 + 0.45 * scaleFactor;
+                const zIndex = Math.round(20 * scaleFactor) + 1;
+                return { x, y, size, opacity, zIndex };
+            }
+
+            /* ========== 应用图标状态 ========== */
+            function applyIconState(element, angleRad, params) {
+                const pos = computePosition(angleRad, params);
+                /* 星座图整体放大；--icon-scale 对所有 A/B/C 统一放大，
+                   --image-icon-scale 仅对带图片的 A/B 额外放大 */
+                const isImage = element.classList.contains('has-image');
+                const boxSize = pos.size * (isImage ? params.imageScale : 1) * (params.iconScale || 1);
+
+                element.style.left = `calc(50% + ${pos.x}px)`;
+                element.style.top = `calc(50% + ${pos.y}px)`;
+                element.style.width = boxSize + 'px';
+                element.style.height = boxSize + 'px';
+                element.style.fontSize = (pos.size * 0.62) + 'px';
+
+                /* 处于正中槽位时才显示图标下方的文字 */
+                element.classList.toggle('at-center', pos.size > params.mainSize * 0.7);
+
+                /* 下方文字跟随旋转角度缩放：缩放取 angleZ（槽位角），
+                   3D 倾斜取 angleY（槽位角的 0.3 倍），与图片的余弦缩放同一规律。
+                   透明度也在此同帧、同曲线驱动，并在内容交换点（±60°）之前淡出，
+                   避免缩放与淡入淡出脱节、以及 50% 处重建文字导致的跳变 */
+                const capEls = element.querySelectorAll('.icon-caption');
+                if (capEls.length) {
+                    const deg = angleRad * 180 / Math.PI;
+                    if (window.RotateScale && window.__captionRotate) {
+                        window.RotateScale.applyTo(capEls, { angleY: deg * 0.3, angleZ: deg }, window.__captionRotate);
+                    }
+                    const cosA = Math.cos(angleRad);
+                    const f = (cosA + 1) / 2;          // 与 computePosition 相同的余弦因子 0..1
+                    const o = Math.max(0, Math.min(1, (f - 0.75) / 0.25)); // ±60° 处归零
+                    for (let j = 0; j < capEls.length; j++) {
+                        capEls[j].style.opacity = o.toFixed(3);
+                    }
+                }
+
+                if (element.dataset.locked === 'true') {
+                    /* 未解锁星域：色卡中深段 #5B5184，低亮无光晕，与 A/B 的高亮形成层级差 */
+                    element.style.opacity = Math.min(pos.opacity, 0.9);
+                    element.style.zIndex = pos.zIndex;
+                    if (isImage) {
+                        /* 未解锁图片（如巨蟹座）：去饱和 + 压暗，维持锁定灰态 */
+                        element.style.color = 'transparent';
+                        element.style.textShadow = 'none';
+                        element.style.webkitTextStroke = '0';
+                        element.style.filter = 'grayscale(1) brightness(0.72) drop-shadow(0 0 10px rgba(91,81,132,0.35))';
+                    } else {
+                        element.style.color = '#5B5184';
+                        element.style.webkitTextStroke = '0.6px rgba(207, 184, 216, 0.22)';
+                        element.style.textShadow = '0 2px 1px rgba(14,15,29,0.75), 0 3px 10px rgba(14,15,29,0.6), 0 0 22px rgba(91,81,132,0.35)';
+                        element.style.fontWeight = '800';
+                        element.style.filter = 'none';
+                    }
+                    return;
+                }
+
+                element.style.opacity = pos.opacity;
+                element.style.zIndex = pos.zIndex;
+                element.style.webkitTextStroke = '0';
+
+                if (isImage) {
+                    /* 图片图标：背景图用 drop-shadow 实现光晕 */
+                    element.style.color = 'transparent';
+                    element.style.textShadow = 'none';
+                    element.style.fontWeight = '400';
+                    if (pos.size > params.mainSize * 0.7) {
+                        /* 选中：双层光晕 */
+                        element.style.filter = 'drop-shadow(0 0 22px rgba(207,184,216,0.55)) drop-shadow(0 0 48px rgba(147,116,151,0.5))';
+                    } else {
+                        /* 两侧：单层弱光晕 */
+                        element.style.filter = 'drop-shadow(0 0 12px rgba(91,81,132,0.5))';
+                    }
+                } else if (pos.size > params.mainSize * 0.7) {
+                    /* 选中项：最浅色 #CFB8D8 高亮 */
+                    element.style.color = '#CFB8D8';
+                    element.style.textShadow = '0 0 25px rgba(207,184,216,0.6), 0 0 50px rgba(147,116,151,0.5), 0 0 80px rgba(91,81,132,0.45)';
+                    element.style.fontWeight = '900';
+                    element.style.filter = 'none';
+                } else {
+                    /* 两侧项：强调色 #937497 中等层次 */
+                    element.style.color = 'rgba(147,116,151,0.85)';
+                    element.style.textShadow = '0 0 14px rgba(91,81,132,0.45)';
+                    element.style.fontWeight = '700';
+                    element.style.filter = 'none';
+                }
+            }
+
+            /* ========== 槽位角度 ==========
+               x = ellipseA * sin(angle)，sin 为正即偏右，
+               所以左槽位取负角度、右槽位取正角度 */
+            const SLOT_LEFT = -Math.PI * 2 / 3;
+            const SLOT_CENTER = 0;
+            const SLOT_RIGHT = Math.PI * 2 / 3;
+            const slotAngles = [SLOT_LEFT, SLOT_CENTER, SLOT_RIGHT];
+
+            /* ========== 渲染静态状态 ========== */
+            function renderStatic() {
+                const params = getOrbitParams();
+                const len = options.length;
+                const contents = [
+                    options[(currentIndex - 1 + len) % len],
+                    options[currentIndex],
+                    options[(currentIndex + 1) % len],
+                ];
+
+                for (let i = 0; i < 3; i++) {
+                    const el = iconElements[i];
+                    const opt = contents[i];
+                    applyIconContent(el, opt);
+                    const label = opt.locked
+                        ? `${opt.id} 星域未解锁`
+                        : (i === 1 ? `进入 ${opt.id} 子页面` : `切换到 ${opt.id}`);
+                    el.setAttribute('aria-label', label);
+                    el.dataset.link = opt.link;
+                    applyIconState(el, slotAngles[i], params);
+                }
+            }
+
+            /* ========== 设置图标内容 ========== */
+            function applyIconContent(el, option) {
+                const locked = !!(option && option.locked);
+                el.textContent = '';
+                el.classList.toggle('is-locked', locked);
+                el.dataset.locked = locked ? 'true' : 'false';
+
+                if (!option) return;
+
+                if (option.iconImage) {
+                    el.classList.add('has-image');
+                    el.style.backgroundImage = `url(${option.iconImage})`;
+                    el.style.backgroundSize = 'contain';
+                    el.style.backgroundRepeat = 'no-repeat';
+                    el.style.backgroundPosition = 'center';
+                } else {
+                    el.classList.remove('has-image');
+                    el.textContent = option.label;
+                    el.style.backgroundImage = 'none';
+                }
+
+                applyIconCaption(el, option);
+
+                if (!locked) return;
+
+                const tip = document.createElement('span');
+                tip.className = 'lock-tooltip';
+                tip.textContent = LOCK_TIP_TEXT;
+                el.appendChild(tip);
+            }
+
+            /* ===== 图标下方文字：中文 + 英文两行，仅居中时显示 ===== */
+            function applyIconCaption(el, option) {
+                if (!option || !option.caption) return;
+                const cap = document.createElement('span');
+                cap.className = 'icon-caption';
+
+                const cn = document.createElement('span');
+                cn.className = 'cap-cn';
+                cn.textContent = option.caption;
+                cap.appendChild(cn);
+
+                if (option.hoverText) {
+                    const en = document.createElement('span');
+                    en.className = 'cap-en';
+                    en.textContent = option.hoverText;
+                    cap.appendChild(en);
+                }
+
+                el.appendChild(cap);
+            }
+
+            /* 未解锁提示的临时展示（点击/触摸时） */
+            let tipTimer = null;
+            function flashLockTip(el) {
+                if (!el) return;
+                el.classList.remove('shake');
+                void el.offsetWidth;
+                el.classList.add('shake', 'tip-show');
+                clearTimeout(tipTimer);
+                tipTimer = setTimeout(() => {
+                    el.classList.remove('tip-show');
+                }, 1600);
+            }
+
+            /* ========== 旋转动画 ========== */
+            function animateOrbit(direction) {
+                const params = getOrbitParams();
+                const duration = 1200;
+                const startTime = performance.now();
+                const startAngles = [...slotAngles];
+                const step = Math.PI * 2 / 3;
+                const offset = direction === 'next' ? -step : step;
+
+                let contentUpdated = false;
+
+                function easeInOut(t) {
+                    return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+                }
+
+                function frame(now) {
+                    const elapsed = now - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const eased = easeInOut(progress);
+                    const currentAngles = startAngles.map(a => a + offset * eased);
+
+                    for (let i = 0; i < 3; i++) {
+                        applyIconState(iconElements[i], currentAngles[i], params);
+                    }
+
+                    if (progress >= 0.5 && !contentUpdated) {
+                        contentUpdated = true;
+                        const len = options.length;
+                        const newCurrent = options[currentIndex];
+                        const newPrev = options[(currentIndex - 1 + len) % len];
+                        const newNext = options[(currentIndex + 1) % len];
+
+                        /* 元素按 [iconLeft, iconCenter, iconRight] 顺序落位：
+                           next 时右槽位移到中心，故中心取 newCurrent、左槽位取 newPrev、右槽位取 newNext */
+                        if (direction === 'next') {
+                            const contents = [newNext, newPrev, newCurrent];
+                            for (let i = 0; i < 3; i++) {
+                                applyIconContent(iconElements[i], contents[i]);
+                                iconElements[i].dataset.link = contents[i].link;
+                            }
+                        } else {
+                            const contents = [newCurrent, newNext, newPrev];
+                            for (let i = 0; i < 3; i++) {
+                                applyIconContent(iconElements[i], contents[i]);
+                                iconElements[i].dataset.link = contents[i].link;
+                            }
+                        }
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(frame);
+                    } else {
+                        renderStatic();
+                        isAnimating = false;
+                    }
+                }
+
+                requestAnimationFrame(frame);
+            }
+
+            /* ========== 切换逻辑 ========== */
+            function switchTo(newIndex, direction) {
+                const len = options.length;
+                if (len === 0 || isAnimating) return;
+                newIndex = ((newIndex % len) + len) % len;
+                if (newIndex === currentIndex) return;
+
+                isAnimating = true;
+                currentIndex = newIndex;
+                animateOrbit(direction);
+            }
+
+            function goNext() {
+                if (isAnimating) return;
+                switchTo(currentIndex + 1, 'next');
+            }
+
+            function goPrev() {
+                if (isAnimating) return;
+                switchTo(currentIndex - 1, 'prev');
+            }
+
+            function enterCurrentPage() {
+                if (isAnimating) return;
+                const current = options[currentIndex];
+                if (current && current.locked) {
+                    flashLockTip(iconCenter);
+                    return;
+                }
+                if (current.link && current.link !== '#') {
+                    window.location.href = current.link;
+                }
+            }
+
+            /* ========== 事件绑定 ========== */
+            btnRight.addEventListener('click', (e) => { e.stopPropagation(); goNext(); });
+            btnLeft.addEventListener('click', (e) => { e.stopPropagation(); goPrev(); });
+            iconRight.addEventListener('click', (e) => { e.stopPropagation(); goNext(); });
+            iconLeft.addEventListener('click', (e) => { e.stopPropagation(); goPrev(); });
+            iconCenter.addEventListener('click', (e) => { e.stopPropagation(); enterCurrentPage(); });
+            iconCenter.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); enterCurrentPage(); }
+            });
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowRight') { e.preventDefault(); goNext(); }
+                else if (e.key === 'ArrowLeft') { e.preventDefault(); goPrev(); }
+            });
+
+            /* ========== 触摸滑动 ========== */
+            let touchStartX = 0,
+                touchStartY = 0,
+                isSwiping = false;
+            interactionArea.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    const t = e.touches[0];
+                    touchStartX = t.clientX;
+                    touchStartY = t.clientY;
+                    isSwiping = true;
+                }
+            }, { passive: true });
+            interactionArea.addEventListener('touchmove', (e) => e.preventDefault(), { passive: false });
+            interactionArea.addEventListener('touchend', (e) => {
+                if (!isSwiping) return;
+                isSwiping = false;
+                if (e.changedTouches.length === 1) {
+                    const t = e.changedTouches[0];
+                    const dx = t.clientX - touchStartX;
+                    const dy = t.clientY - touchStartY;
+                    if (Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 40) {
+                        if (dx > 0) goPrev();
+                        else goNext();
+                    }
+                }
+            });
+
+            /* ========== 初始化 ========== */
+            function init() {
+                starField.init();
+                requestAnimationFrame(() => {
+                    renderStatic();
+                    setTimeout(renderStatic, 100);
+                });
+            }
+            init();
+        })();
+    </script>
+
+    <script>
+        /* 等待自定义字体真正可用后再淡入签名，避免"备用字体 → 自定义字体"的可见切换；
+           1200ms 兜底，字体失败也保证文字出现 */
+        (function () {
+            /* 签名与 ABC 主体共用同一套淡入，同一帧加类 → 同时起播 */
+            var els = [
+                document.getElementById('signatureLayer'),
+                document.getElementById('interactionArea')
+            ].filter(Boolean);
+            if (!els.length) return;
+            var reveal = function () {
+                els.forEach(function (el) { el.classList.add('font-ready'); });
+            };
+            if (document.fonts && document.fonts.load) {
+                Promise.race([
+                    Promise.all([
+                        document.fonts.load('700 1em AidianSignatureTi'),
+                        document.fonts.load('500 15px DingLieXiDa')
+                    ]).then(function () { return document.fonts.ready; }),
+                    new Promise(function (resolve) { setTimeout(resolve, 1200); })
+                ]).then(reveal).catch(reveal);
+            } else {
+                reveal();
+            }
+        })();
+    </script>
+</body>
 </html>
